@@ -1,0 +1,243 @@
+import { z } from "zod";
+
+const url = z.string().url();
+const optionalUrl = url.optional();
+const bilingual = {
+  nameZh: z.string().min(1),
+  nameEn: z.string().min(1),
+};
+
+export const profileSchema = z.object({
+  nameZh: z.string().min(1),
+  nameEn: z.string().min(1),
+  universityZh: z.string().min(1),
+  universityEn: z.string().min(1),
+  schoolZh: z.string().min(1),
+  schoolEn: z.string().min(1),
+  majorZh: z.string().min(1),
+  majorEn: z.string().min(1),
+  degreeZh: z.string().min(1),
+  degreeEn: z.string().min(1),
+  period: z.string().min(1),
+  locationZh: z.string().min(1),
+  locationEn: z.string().min(1),
+  bioZh: z.string().min(1),
+  bioEn: z.string().min(1),
+  bioEditable: z.boolean(),
+  photo: z.string().startsWith("/"),
+  photoAltZh: z.string().min(1),
+  photoAltEn: z.string().min(1),
+  github: url,
+  orcid: z.string().regex(/^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/),
+  schoolEmail: z.string().email(),
+  lastUpdated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+});
+
+export const navigationSchema = z.array(
+  z.object({ path: z.string(), zh: z.string().min(1), en: z.string().min(1) }),
+);
+
+export const educationSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    institutionZh: z.string().min(1),
+    institutionEn: z.string().min(1),
+    periodZh: z.string().min(1),
+    periodEn: z.string().min(1),
+    schoolZh: z.string().min(1),
+    schoolEn: z.string().min(1),
+    programZh: z.string().min(1),
+    programEn: z.string().min(1),
+    locationZh: z.string().min(1),
+    locationEn: z.string().min(1),
+    type: z.enum(["education", "exchange"]),
+  }),
+);
+
+export const researchInterestsSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    ...bilingual,
+    descriptionZh: z.string().min(1),
+    descriptionEn: z.string().min(1),
+    keywords: z.array(z.string()),
+    icon: z.string().optional(),
+  }),
+);
+
+export const publicationsSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    title: z.string().min(1),
+    authors: z.array(z.string().min(1)).min(1),
+    firstAuthor: z.boolean(),
+    venue: z.string().optional(),
+    year: z.number().int().optional(),
+    status: z.enum(["published", "accepted", "under_review", "preprint", "in_progress"]),
+    abstractZh: z.string().optional(),
+    abstractEn: z.string().optional(),
+    doi: z.string().optional(),
+    paperUrl: optionalUrl,
+    codeUrl: optionalUrl,
+    projectUrl: optionalUrl,
+    bibtex: z.string().optional(),
+    cover: z.string().optional(),
+    tags: z.array(z.string()),
+    featured: z.boolean(),
+    visible: z.boolean(),
+  }),
+);
+
+export const projectsSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    titleZh: z.string().min(1),
+    titleEn: z.string().min(1),
+    summaryZh: z.string().min(1),
+    summaryEn: z.string().min(1),
+    contributionZh: z.array(z.string()),
+    contributionEn: z.array(z.string()),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    status: z.enum(["completed", "in_progress", "archived"]),
+    cover: z.string().optional(),
+    githubUrl: optionalUrl,
+    demoUrl: optionalUrl,
+    reportUrl: optionalUrl,
+    tags: z.array(z.string()),
+    featured: z.boolean(),
+    visible: z.boolean(),
+  }),
+);
+
+export const competitionsSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    nameZh: z.string().min(1),
+    nameEn: z.string().min(1),
+    projectTitleZh: z.string().optional(),
+    projectTitleEn: z.string().optional(),
+    year: z.number().int().optional(),
+    level: z.enum(["international", "national", "provincial", "university"]),
+    awardZh: z.string().min(1),
+    awardEn: z.string().min(1),
+    roleZh: z.string().optional(),
+    roleEn: z.string().optional(),
+    contributionZh: z.array(z.string()).optional(),
+    contributionEn: z.array(z.string()).optional(),
+    descriptionZh: z.string().optional(),
+    descriptionEn: z.string().optional(),
+    cover: z.string().optional(),
+    githubUrl: optionalUrl,
+    demoUrl: optionalUrl,
+    reportUrl: optionalUrl,
+    certificate: z.string().optional(),
+    tags: z.array(z.string()),
+    featured: z.boolean(),
+  }),
+);
+
+export const awardsSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    nameZh: z.string().min(1),
+    nameEn: z.string().min(1),
+    year: z.number().int().optional(),
+    issuerZh: z.string().min(1),
+    issuerEn: z.string().min(1),
+    level: z.enum(["national", "provincial", "university"]),
+    type: z.enum(["competition", "scholarship", "honor", "research", "other"]),
+    descriptionZh: z.string().optional(),
+    descriptionEn: z.string().optional(),
+    certificate: z.string().optional(),
+    featured: z.boolean(),
+  }),
+);
+
+export const experiencesSchema = z.array(
+  z.object({
+    id: z.string().min(1),
+    periodZh: z.string().min(1),
+    periodEn: z.string().min(1),
+    organizationZh: z.string().min(1),
+    organizationEn: z.string().min(1),
+    roleZh: z.string().min(1),
+    roleEn: z.string().min(1),
+    descriptionZh: z.string().min(1),
+    descriptionEn: z.string().min(1),
+    achievementsZh: z.array(z.string()),
+    achievementsEn: z.array(z.string()),
+    category: z.string().min(1),
+    image: z.string().optional(),
+    externalUrl: optionalUrl,
+    visible: z.boolean(),
+  }),
+);
+
+export const skillsSchema = z.array(
+  z.object({
+    categoryZh: z.string().min(1),
+    categoryEn: z.string().min(1),
+    items: z.array(z.string().min(1)),
+  }),
+);
+
+export const publicContactSchema = z.object({
+  contactVisibility: z.object({
+    schoolEmail: z.boolean(),
+    personalEmail: z.boolean(),
+    phone: z.boolean(),
+    wechat: z.boolean(),
+  }),
+  locationZh: z.string().min(1),
+  locationEn: z.string().min(1),
+  cvRequestSubjectZh: z.string().min(1),
+  cvRequestSubjectEn: z.string().min(1),
+});
+
+export const siteSchema = z.object({
+  siteTitle: z.string().min(1),
+  siteDescription: z.string().min(1),
+  homeEyebrow: z.string().min(1),
+  researchStatement: z.string().min(1),
+  futurePlans: z.array(z.string().min(1)),
+  furtherQuestions: z.array(z.string().min(1)),
+  analyticsProvider: z.enum(["none", "google", "umami"]),
+  allowSearchIndexing: z.boolean(),
+});
+
+export const githubSyncConfigSchema = z.object({
+  username: z.string().min(1),
+  featuredRepositories: z.array(z.string().min(1)),
+});
+
+export const githubCacheSchema = z.object({
+  syncedAt: z.string().datetime().nullable(),
+  repositories: z.array(
+    z.object({
+      name: z.string().min(1),
+      description: z.string().min(1),
+      url: z.string().url(),
+      language: z.string().nullable(),
+      topics: z.array(z.string()),
+      stars: z.number().int().nonnegative(),
+    }),
+  ),
+});
+
+export const schemas = {
+  "profile.json": profileSchema,
+  "navigation.json": navigationSchema,
+  "education.json": educationSchema,
+  "research-interests.json": researchInterestsSchema,
+  "publications.json": publicationsSchema,
+  "projects.json": projectsSchema,
+  "competitions.json": competitionsSchema,
+  "awards.json": awardsSchema,
+  "experiences.json": experiencesSchema,
+  "skills.json": skillsSchema,
+  "contact.public.json": publicContactSchema,
+  "site.zh.json": siteSchema,
+  "site.en.json": siteSchema,
+  "github-sync.config.json": githubSyncConfigSchema,
+} as const;

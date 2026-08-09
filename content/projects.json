@@ -1,0 +1,15 @@
+[
+  {
+    "id": "project-template",
+    "titleZh": "TODO：项目名称",
+    "titleEn": "TODO: Project title",
+    "summaryZh": "项目内容正在整理中。",
+    "summaryEn": "Project materials are being organized.",
+    "contributionZh": [],
+    "contributionEn": [],
+    "status": "in_progress",
+    "tags": [],
+    "featured": false,
+    "visible": false
+  }
+]

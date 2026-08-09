@@ -1,0 +1,42 @@
+[
+  {
+    "id": "teddy-cup-award",
+    "nameZh": "泰迪杯 · 国家级三等奖",
+    "nameEn": "Teddy Cup · National Third Prize",
+    "issuerZh": "TODO：补充颁发单位",
+    "issuerEn": "TODO: Add awarding organization",
+    "level": "national",
+    "type": "competition",
+    "featured": true
+  },
+  {
+    "id": "service-outsourcing-award",
+    "nameZh": "服务外包创新创业大赛 · 国家级三等奖",
+    "nameEn": "Service Outsourcing Innovation and Entrepreneurship Competition · National Third Prize",
+    "issuerZh": "TODO：补充颁发单位",
+    "issuerEn": "TODO: Add awarding organization",
+    "level": "national",
+    "type": "competition",
+    "featured": true
+  },
+  {
+    "id": "computer-design-award",
+    "nameZh": "大学生计算机设计大赛 · 省级一等奖",
+    "nameEn": "College Student Computer Design Competition · Provincial First Prize",
+    "issuerZh": "TODO：补充颁发单位",
+    "issuerEn": "TODO: Add awarding organization",
+    "level": "provincial",
+    "type": "competition",
+    "featured": true
+  },
+  {
+    "id": "innovation-training-award",
+    "nameZh": "大学生创新创业训练计划 · 省级立项",
+    "nameEn": "Student Innovation and Entrepreneurship Training Program · Provincial Project",
+    "issuerZh": "TODO：补充颁发单位",
+    "issuerEn": "TODO: Add awarding organization",
+    "level": "provincial",
+    "type": "research",
+    "featured": true
+  }
+]

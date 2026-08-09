@@ -1,0 +1,5 @@
+{
+  "personalEmail": { "value": "your-private-email@example.com", "visible": false },
+  "phone": { "value": "your-phone-number", "visible": false },
+  "wechat": { "value": "your-wechat-id", "visible": false }
+}

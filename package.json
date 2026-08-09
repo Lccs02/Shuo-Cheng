@@ -1,0 +1,59 @@
+{
+  "name": "shuo-cheng",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run prepare:private && npm run validate:content && next build && npm run postprocess:static && npm run scan:output",
+    "start": "next start",
+    "preview": "node scripts/serve-static.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "sync:github": "node scripts/sync-github.mjs",
+    "content:studio": "node tools/content-studio/server.mjs",
+    "prepare:private": "node scripts/prepare-private-contact.mjs",
+    "postprocess:static": "node scripts/postprocess-static.mjs",
+    "scan:output": "node scripts/scan-build.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.28.0",
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.2.12",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^4",
+    "tsx": "^4.19.2",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "postcss": "^8.5.18",
+    "sharp": "^0.35.0",
+    "minimatch": "^10.2.6",
+    "brace-expansion": "^5.0.9"
+  }
+}

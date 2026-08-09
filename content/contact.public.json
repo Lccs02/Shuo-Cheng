@@ -1,0 +1,12 @@
+{
+  "contactVisibility": {
+    "schoolEmail": true,
+    "personalEmail": false,
+    "phone": false,
+    "wechat": false
+  },
+  "locationZh": "杭州",
+  "locationEn": "Hangzhou",
+  "cvRequestSubjectZh": "申请查看程硕同学个人简历",
+  "cvRequestSubjectEn": "Request to view Shuo Cheng's CV"
+}

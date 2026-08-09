@@ -1,0 +1,13 @@
+[
+  {
+    "categoryZh": "编程与工具",
+    "categoryEn": "Programming & Tools",
+    "items": ["PyTorch", "Git", "LaTeX"]
+  },
+  {
+    "categoryZh": "科研能力",
+    "categoryEn": "Research Practice",
+    "items": ["论文写作", "实验设计", "数据分析", "模型复现"]
+  },
+  { "categoryZh": "语言", "categoryEn": "Language", "items": ["CET-6"] }
+]

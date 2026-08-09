@@ -1,0 +1,19 @@
+{
+  "siteTitle": "Shuo Cheng · Academic Homepage",
+  "siteDescription": "Academic homepage of Shuo Cheng, an undergraduate student in Cyberspace Security at Hangzhou Dianzi University.",
+  "homeEyebrow": "Cyberspace Security · Undergraduate",
+  "researchStatement": "Understanding resources and states in dynamic network environments through reproducible experiments and clear problem formulation.",
+  "futurePlans": [
+    "Resource modeling and scheduling in complex network environments",
+    "Dynamic resource management in satellite networks",
+    "Time-series forecasting for network-state modeling",
+    "AI methods for network-system optimization"
+  ],
+  "furtherQuestions": [
+    "How can resource decisions remain robust under rapidly changing topology and traffic?",
+    "How can data-driven models become more interpretable and generalize across scenarios?",
+    "How can network forecasting and scheduling experiments become reproducible and comparable?"
+  ],
+  "analyticsProvider": "none",
+  "allowSearchIndexing": false
+}

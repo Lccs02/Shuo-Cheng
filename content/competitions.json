@@ -1,0 +1,50 @@
+[
+  {
+    "id": "teddy-cup",
+    "nameZh": "泰迪杯",
+    "nameEn": "Teddy Cup",
+    "awardZh": "国家级三等奖",
+    "awardEn": "National Third Prize",
+    "level": "national",
+    "roleZh": "TODO：补充个人角色",
+    "roleEn": "TODO: Add individual role",
+    "tags": [],
+    "featured": true
+  },
+  {
+    "id": "service-outsourcing",
+    "nameZh": "服务外包创新创业大赛",
+    "nameEn": "Service Outsourcing Innovation and Entrepreneurship Competition",
+    "awardZh": "国家级三等奖",
+    "awardEn": "National Third Prize",
+    "level": "national",
+    "roleZh": "TODO：补充个人角色",
+    "roleEn": "TODO: Add individual role",
+    "tags": [],
+    "featured": true
+  },
+  {
+    "id": "computer-design",
+    "nameZh": "大学生计算机设计大赛",
+    "nameEn": "College Student Computer Design Competition",
+    "awardZh": "省级一等奖",
+    "awardEn": "Provincial First Prize",
+    "level": "provincial",
+    "roleZh": "TODO：补充个人角色",
+    "roleEn": "TODO: Add individual role",
+    "tags": [],
+    "featured": true
+  },
+  {
+    "id": "innovation-training",
+    "nameZh": "大学生创新创业训练计划",
+    "nameEn": "Student Innovation and Entrepreneurship Training Program",
+    "awardZh": "省级立项",
+    "awardEn": "Provincial-level Project",
+    "level": "provincial",
+    "roleZh": "负责人",
+    "roleEn": "Project Lead",
+    "tags": [],
+    "featured": true
+  }
+]

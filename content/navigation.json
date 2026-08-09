@@ -1,0 +1,10 @@
+[
+  { "path": "", "zh": "首页", "en": "Home" },
+  { "path": "about", "zh": "关于我", "en": "About" },
+  { "path": "research", "zh": "科研", "en": "Research" },
+  { "path": "projects", "zh": "项目", "en": "Projects" },
+  { "path": "competitions", "zh": "竞赛", "en": "Competitions" },
+  { "path": "awards", "zh": "荣誉", "en": "Awards" },
+  { "path": "experience", "zh": "经历", "en": "Experience" },
+  { "path": "contact", "zh": "联系方式", "en": "Contact" }
+]
