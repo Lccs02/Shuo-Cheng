@@ -43,11 +43,11 @@ export function SocialLinks({ locale }: { locale: Locale }) {
 export function Hero({ locale }: { locale: Locale }) {
   const site = sites[locale];
   return (
-    <section className="relative isolate overflow-hidden">
+    <section className="hero-stage relative isolate overflow-hidden" data-hero>
       <OrbitalAgentField />
       <div className="hero-atmosphere absolute inset-0" aria-hidden="true" />
       <div className="shell relative z-10 grid min-h-[min(46rem,calc(100svh-4.25rem))] grid-cols-1 items-center gap-9 pb-12 pt-24 lg:grid-cols-[1.48fr_.52fr] lg:gap-16 lg:pt-20">
-        <div className="reveal">
+        <div className="hero-copy reveal">
           <p className="eyebrow">{site.homeEyebrow}</p>
           <h1 className="display mt-5">
             <span className="block">{locale === "zh" ? profile.nameZh : profile.nameEn}</span>
@@ -91,7 +91,7 @@ export function Hero({ locale }: { locale: Locale }) {
             <ArrowDown size={15} aria-hidden />
           </a>
         </div>
-        <div className="reveal reveal-delay mx-auto w-full max-w-[18rem] lg:max-w-[19rem]">
+        <div className="hero-portrait reveal reveal-delay mx-auto w-full max-w-[18rem] lg:max-w-[19rem]">
           <ProfilePhoto locale={locale} />
         </div>
       </div>

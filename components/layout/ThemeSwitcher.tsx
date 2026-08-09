@@ -1,8 +1,17 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import type { Locale } from "@/types/content";
+
+function subscribeToTheme(callback: () => void) {
+  window.addEventListener("themechange", callback);
+  return () => window.removeEventListener("themechange", callback);
+}
+
+function getThemeSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
 
 export function ThemeInitializer() {
   useEffect(() => {
@@ -16,15 +25,14 @@ export function ThemeInitializer() {
 }
 
 export function ThemeSwitcher({ locale }: { locale: Locale }) {
-  const [dark, setDark] = useState(
-    () => typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
-  );
+  // 服务端快照固定为浅色图标；水合后再同步初始化脚本设置的真实主题。
+  const dark = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => false);
 
   function toggle() {
     const next = !dark;
-    setDark(next);
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
+    window.dispatchEvent(new Event("themechange"));
   }
 
   const label =

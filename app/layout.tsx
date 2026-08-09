@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@/components/common/Analytics";
 import { BackToTop } from "@/components/common/BackToTop";
+import { MotionOrchestrator } from "@/components/common/MotionOrchestrator";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ThemeInitializer } from "@/components/layout/ThemeSwitcher";
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f4ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#171716" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f7f6" },
+    { media: "(prefers-color-scheme: dark)", color: "#081419" },
   ],
 };
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <ThemeInitializer />
+        <MotionOrchestrator />
         <a
           href="#main-content"
           className="fixed left-4 top-3 z-[100] -translate-y-20 bg-[var(--ink)] px-4 py-2 text-[var(--paper)] focus:translate-y-0"

@@ -31,6 +31,10 @@ test("language switch keeps the current page", async ({ page }) => {
 });
 
 test("theme choice persists", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
   await page.goto(sitePath("/"));
   const switcher = page.getByRole("button", { name: /切换到/ });
   const initiallyDark = await page
@@ -44,6 +48,7 @@ test("theme choice persists", async ({ page }) => {
   await expect
     .poll(() => page.locator("html").evaluate((element) => element.classList.contains("dark")))
     .toBe(!initiallyDark);
+  expect(errors).toEqual([]);
 });
 
 test("orbital multi-agent field initializes", async ({ page }) => {
@@ -66,6 +71,24 @@ test("orbital field stays still when reduced motion is requested", async ({ page
   await page.waitForTimeout(120);
   const secondFrame = await field.evaluate((element: HTMLCanvasElement) => element.toDataURL());
   expect(secondFrame).toBe(firstFrame);
+});
+
+test("native scrolling drives depth and section reveals", async ({ page }) => {
+  await page.goto(sitePath("/"));
+  await page.evaluate(() => window.scrollTo({ top: window.innerHeight * 0.65 }));
+  await expect
+    .poll(() =>
+      page
+        .locator("html")
+        .evaluate((element) =>
+          Number.parseFloat(getComputedStyle(element).getPropertyValue("--hero-copy-y")),
+        ),
+    )
+    .toBeLessThan(-0.5);
+
+  const firstSection = page.locator("[data-motion]").first();
+  await firstSection.scrollIntoViewIfNeeded();
+  await expect(firstSection).toHaveClass(/is-visible/);
 });
 
 test("private fields remain absent", async ({ page }) => {

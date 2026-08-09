@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 
 type Palette = {
-  ink: string;
-  muted: string;
   line: string;
   accent: string;
   signal: string;
@@ -25,6 +23,13 @@ type Point = {
   orbit: number;
 };
 
+type DepthPoint = {
+  x: number;
+  y: number;
+  depth: number;
+  phase: number;
+};
+
 const agentSpecs: AgentSpec[] = Array.from({ length: 18 }, (_, index) => ({
   orbit: index % 3,
   offset: (index / 18) * Math.PI * 2 + (index % 3) * 0.62,
@@ -32,12 +37,17 @@ const agentSpecs: AgentSpec[] = Array.from({ length: 18 }, (_, index) => ({
   size: 1.9 + (index % 3) * 0.55,
 }));
 
+const depthPoints: DepthPoint[] = Array.from({ length: 52 }, (_, index) => ({
+  x: ((index * 47) % 101) / 100,
+  y: ((index * 67 + 19) % 97) / 96,
+  depth: 0.25 + ((index * 29) % 71) / 100,
+  phase: index * 0.73,
+}));
+
 function readPalette(): Palette {
   const styles = getComputedStyle(document.documentElement);
   const value = (name: string) => styles.getPropertyValue(name).trim();
   return {
-    ink: value("--ink"),
-    muted: value("--muted"),
     line: value("--line"),
     accent: value("--accent"),
     signal: value("--signal"),
@@ -76,6 +86,23 @@ export function OrbitalAgentField() {
       { rx: width * 0.185, ry: height * 0.18, rotation: 0.24 },
       { rx: width * 0.25, ry: height * 0.255, rotation: -0.12 },
     ];
+
+    function drawDepthField(time: number) {
+      context.save();
+      depthPoints.forEach((point, index) => {
+        const drift = Math.sin(time * 0.00013 + point.phase) * 10 * point.depth;
+        const x = width * (0.39 + point.x * 0.65) + drift;
+        const y = height * (0.08 + point.y * 0.82) + Math.cos(time * 0.0001 + point.phase) * 5;
+        const radius = 0.45 + point.depth * 1.05;
+        const pulse = 0.5 + Math.sin(time * 0.0007 + point.phase) * 0.5;
+        context.fillStyle = index % 9 === 0 ? palette.signalAlt : palette.signal;
+        context.globalAlpha = 0.055 + point.depth * 0.12 + pulse * 0.035;
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.fill();
+      });
+      context.restore();
+    }
 
     function drawDotField(time: number) {
       const columns = Math.max(28, Math.round(width / 32));
@@ -140,6 +167,31 @@ export function OrbitalAgentField() {
       context.restore();
     }
 
+    function drawSignalArcs(time: number) {
+      const centerX = width * 0.77;
+      const centerY = height * 0.43;
+      context.save();
+      context.translate(centerX, centerY);
+      context.lineCap = "round";
+
+      for (let index = 0; index < 5; index += 1) {
+        const radius = Math.min(width, height) * (0.12 + index * 0.044);
+        const rotation = time * (0.000018 + index * 0.000003) * (index % 2 ? -1 : 1);
+        context.save();
+        context.rotate(rotation - 0.6 + index * 0.32);
+        context.strokeStyle = index % 2 === 0 ? palette.signal : palette.accent;
+        context.lineWidth = index === 0 ? 1.35 : 0.7;
+        context.globalAlpha = 0.12 + (5 - index) * 0.035;
+        context.setLineDash([radius * 0.36, radius * 0.11, radius * 0.06, radius * 0.22]);
+        context.lineDashOffset = -time * (0.006 + index * 0.0015);
+        context.beginPath();
+        context.ellipse(0, 0, radius, radius * 0.43, -0.12, 0, Math.PI * 2);
+        context.stroke();
+        context.restore();
+      }
+      context.restore();
+    }
+
     function drawAgentNetwork(points: Point[], time: number) {
       context.save();
       context.lineWidth = 0.8;
@@ -185,54 +237,85 @@ export function OrbitalAgentField() {
       context.restore();
     }
 
-    function drawSatellite(time: number) {
-      const orbit = orbitData()[2];
-      const angle = -2.2 + Math.sin(time * 0.00008) * 0.18;
-      const center = { x: width * 0.77, y: height * 0.43 };
-      const offset = rotatePoint(
-        Math.cos(angle) * orbit.rx,
-        Math.sin(angle) * orbit.ry,
-        orbit.rotation,
-      );
-
+    function drawDataPackets(points: Point[], time: number) {
       context.save();
-      context.translate(center.x + offset.x, center.y + offset.y);
-      context.rotate(angle + orbit.rotation + Math.PI / 2);
-      context.scale(1.25, 1.25);
-      context.globalAlpha = 0.92;
+      context.lineCap = "round";
+      for (let index = 0; index < 10; index += 1) {
+        const source = points[(index * 5) % points.length];
+        const target = points[(index * 5 + 7) % points.length];
+        const progress = (time * (0.000035 + (index % 3) * 0.000006) + index * 0.117) % 1;
+        const bend = Math.sin(progress * Math.PI) * (index % 2 === 0 ? 18 : -18);
+        const x = source.x + (target.x - source.x) * progress;
+        const y = source.y + (target.y - source.y) * progress + bend;
+        const previousProgress = Math.max(0, progress - 0.055);
+        const previousBend = Math.sin(previousProgress * Math.PI) * (index % 2 === 0 ? 18 : -18);
+        const previousX = source.x + (target.x - source.x) * previousProgress;
+        const previousY = source.y + (target.y - source.y) * previousProgress + previousBend;
 
-      context.strokeStyle = palette.signal;
-      context.lineWidth = 1;
-      for (let radius = 11; radius <= 21; radius += 5) {
-        context.globalAlpha = 0.18 + radius * 0.008;
+        context.strokeStyle = index % 4 === 0 ? palette.signalAlt : palette.signal;
+        context.lineWidth = 1.1;
+        context.globalAlpha = Math.sin(progress * Math.PI) * 0.58;
         context.beginPath();
-        context.arc(0, -8, radius, Math.PI * 1.13, Math.PI * 1.87);
+        context.moveTo(previousX, previousY);
+        context.lineTo(x, y);
+        context.stroke();
+
+        context.globalAlpha *= 0.35;
+        context.lineWidth = 4.2;
+        context.beginPath();
+        context.moveTo(previousX, previousY);
+        context.lineTo(x, y);
         context.stroke();
       }
+      context.restore();
+    }
 
-      context.globalAlpha = 0.9;
-      context.fillStyle = palette.signal;
-      context.fillRect(-20, -5, 13, 10);
-      context.fillRect(7, -5, 13, 10);
-      context.strokeStyle = palette.ink;
-      context.strokeRect(-20, -5, 13, 10);
-      context.strokeRect(7, -5, 13, 10);
-      context.fillStyle = palette.ink;
-      context.fillRect(-6, -8, 12, 16);
+    function drawRelayCore(time: number) {
+      const center = { x: width * 0.77, y: height * 0.43 };
+      context.save();
+      context.translate(center.x, center.y);
+      const glow = context.createRadialGradient(0, 0, 0, 0, 0, Math.min(width, height) * 0.16);
+      glow.addColorStop(0, palette.signal);
+      glow.addColorStop(0.16, palette.accent);
+      glow.addColorStop(1, "transparent");
+      context.globalAlpha = 0.1 + Math.sin(time * 0.0008) * 0.025;
+      context.fillStyle = glow;
+      context.beginPath();
+      context.arc(0, 0, Math.min(width, height) * 0.16, 0, Math.PI * 2);
+      context.fill();
+
+      for (let index = 0; index < 3; index += 1) {
+        const radius = 10 + index * 8;
+        context.save();
+        context.rotate(time * (0.00011 + index * 0.000035) * (index % 2 ? -1 : 1));
+        context.strokeStyle = index === 1 ? palette.accent : palette.signal;
+        context.lineWidth = index === 0 ? 1.4 : 0.8;
+        context.globalAlpha = 0.45 - index * 0.08;
+        context.setLineDash(index === 2 ? [3, 5] : [radius * 1.25, radius * 0.7]);
+        context.beginPath();
+        context.ellipse(0, 0, radius, radius * 0.56, -0.2, 0, Math.PI * 2);
+        context.stroke();
+        context.restore();
+      }
+
+      context.globalAlpha = 0.82;
       context.fillStyle = palette.accent;
       context.beginPath();
-      context.arc(0, 0, 2.25, 0, Math.PI * 2);
+      context.arc(0, 0, 2.1, 0, Math.PI * 2);
       context.fill();
       context.restore();
     }
 
     function render(time: number) {
       context.clearRect(0, 0, width, height);
+      drawDepthField(time);
       drawDotField(time);
       drawOrbits();
+      drawSignalArcs(time);
       const points = getAgentPoints(time);
       drawAgentNetwork(points, time);
-      drawSatellite(time);
+      drawDataPackets(points, time);
+      drawRelayCore(time);
     }
 
     function resize() {

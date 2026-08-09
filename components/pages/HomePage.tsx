@@ -65,7 +65,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <main id="main-content">
       <DocumentLanguage locale={locale} />
       <Hero locale={locale} />
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <SectionHeading
           eyebrow={locale === "zh" ? "Research focus" : "Research focus"}
           title={locale === "zh" ? "研究兴趣" : "Research Interests"}
@@ -81,6 +81,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         <section
           aria-label={locale === "zh" ? "成果统计" : "Achievement statistics"}
           className="border-t border-[var(--line)] bg-[var(--paper-deep)]"
+          data-motion
         >
           <div
             className={`shell grid grid-cols-2 divide-x divide-[var(--line)] ${statisticGridClass}`}
@@ -96,7 +97,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </section>
       )}
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <div>
           <SectionHeading eyebrow="Publications" title={t.selectedResearch} />
           <MoreLink locale={locale} path="research" />
@@ -118,7 +119,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           )}
         </div>
       </section>
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <div>
           <SectionHeading eyebrow="Competitions" title={t.competitions} />
           <MoreLink locale={locale} path="competitions" />
@@ -129,7 +130,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <div>
           <SectionHeading eyebrow="Honors" title={t.awards} />
           <MoreLink locale={locale} path="awards" />
@@ -140,14 +141,14 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <div>
           <SectionHeading eyebrow="Timeline" title={t.timeline} />
           <MoreLink locale={locale} path="experience" />
         </div>
         <EducationTimeline items={education} locale={locale} />
       </section>
-      <section className="section shell section-grid">
+      <section className="section shell section-grid" data-motion>
         <div>
           <SectionHeading eyebrow="Engineering" title={t.projects} />
           <MoreLink locale={locale} path="projects" />
@@ -169,7 +170,10 @@ export function HomePage({ locale }: { locale: Locale }) {
           )}
         </div>
       </section>
-      <section className="border-t border-[var(--line)] bg-[var(--ink)] py-12 text-[var(--paper)]">
+      <section
+        className="border-t border-[var(--line)] bg-[var(--ink)] py-12 text-[var(--paper)]"
+        data-motion
+      >
         <div className="shell grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <p className="eyebrow">{locale === "zh" ? "联系方式" : "Contact"}</p>
