@@ -30,17 +30,19 @@ export function ResearchInterestCard({
 }) {
   const Icon = icons[item.icon as keyof typeof icons] ?? Network;
   return (
-    <article className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-[var(--line)] py-6">
-      <div className="pt-1 text-[var(--accent)]">
-        <Icon size={22} strokeWidth={1.5} aria-hidden />
+    <article className="group grid grid-cols-[2.25rem_1fr] gap-3 border-t border-[var(--line)] py-4.5">
+      <div className="pt-0.5 text-[var(--accent)] transition-transform duration-200 group-hover:translate-y-[-2px]">
+        <Icon size={19} strokeWidth={1.5} aria-hidden />
       </div>
       <div>
-        <p className="mb-2 text-xs text-[var(--muted)]">0{index + 1}</p>
-        <h3 className="text-xl">{locale === "zh" ? item.nameZh : item.nameEn}</h3>
-        <p className="mt-3 leading-7 text-[var(--muted)]">
+        <div className="flex items-baseline gap-3">
+          <p className="text-[0.72rem] text-[var(--muted)]">0{index + 1}</p>
+          <h3 className="text-[1.12rem]">{locale === "zh" ? item.nameZh : item.nameEn}</h3>
+        </div>
+        <p className="mt-2 text-[0.9rem] leading-6 text-[var(--muted)]">
           {locale === "zh" ? item.descriptionZh : item.descriptionEn}
         </p>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {item.keywords.map((tag) => (
             <SkillTag key={tag}>{tag}</SkillTag>
           ))}
@@ -92,7 +94,7 @@ export function PublicationCard({
   locale: Locale;
 }) {
   return (
-    <article className="border-t border-[var(--line)] py-7">
+    <article className="border-t border-[var(--line)] py-5">
       <div className="flex flex-wrap items-center gap-3">
         <PublicationStatusBadge status={publication.status} locale={locale} />
         {publication.year && (
@@ -102,10 +104,10 @@ export function PublicationCard({
           <span className="text-xs text-[var(--accent)]">{labels(locale).firstAuthor}</span>
         )}
       </div>
-      <h3 className="mt-4 text-2xl leading-snug break-words">{publication.title}</h3>
-      <p className="mt-3 text-sm text-[var(--muted)]">{publication.authors.join(" · ")}</p>
+      <h3 className="mt-3 text-xl leading-snug break-words">{publication.title}</h3>
+      <p className="mt-2 text-sm text-[var(--muted)]">{publication.authors.join(" · ")}</p>
       {publication.venue && <p className="mt-2 italic">{publication.venue}</p>}
-      <div className="mt-5 flex flex-wrap gap-4 text-sm">
+      <div className="mt-4 flex flex-wrap gap-4 text-sm">
         {publication.doi && (
           <ExternalLink href={`https://doi.org/${publication.doi}`}>DOI</ExternalLink>
         )}

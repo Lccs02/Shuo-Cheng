@@ -57,9 +57,9 @@ const pageTitles: Record<PageSection, { zh: string; en: string; eyebrow: string 
 function PageIntro({ locale, section }: { locale: Locale; section: PageSection }) {
   const title = pageTitles[section];
   return (
-    <header className="mb-16 border-b border-[var(--line)] pb-10">
+    <header className="mb-10 border-b border-[var(--line)] pb-7">
       <p className="eyebrow">{title.eyebrow}</p>
-      <h1 className="mt-5 text-5xl font-normal sm:text-7xl">{title[locale]}</h1>
+      <h1 className="mt-3 text-4xl font-normal leading-tight sm:text-[3.4rem]">{title[locale]}</h1>
     </header>
   );
 }
@@ -71,7 +71,7 @@ function About({ locale }: { locale: Locale }) {
         <SectionHeading title={locale === "zh" ? "学术简介" : "Academic Profile"} />
         <div>
           <p className="prose-copy">{locale === "zh" ? profile.bioZh : profile.bioEn}</p>
-          <p className="prose-copy mt-5">
+          <p className="prose-copy mt-3">
             {locale === "zh"
               ? "目前以课程学习、论文研究与工程实践为基础，持续训练问题建模、实验设计、数据分析、模型复现与学术写作能力。"
               : "Current work combines coursework, paper research, and engineering practice, with continued training in problem formulation, experimental design, data analysis, model reproduction, and academic writing."}
@@ -84,7 +84,7 @@ function About({ locale }: { locale: Locale }) {
       </section>
       <section className="section section-grid">
         <SectionHeading title={locale === "zh" ? "研究兴趣" : "Research Interests"} />
-        <div>
+        <div className="grid gap-x-8 md:grid-cols-2">
           {interests.map((item, index) => (
             <ResearchInterestCard key={item.id} item={item} locale={locale} index={index} />
           ))}
@@ -92,10 +92,10 @@ function About({ locale }: { locale: Locale }) {
       </section>
       <section className="section section-grid">
         <SectionHeading title={locale === "zh" ? "技能与工具" : "Skills & Tools"} />
-        <div className="space-y-7">
+        <div className="grid gap-x-10 gap-y-5 sm:grid-cols-2">
           {skills.map((group) => (
             <div key={group.categoryZh}>
-              <h3 className="mb-3 text-lg">
+              <h3 className="mb-2 text-[1.05rem]">
                 {locale === "zh" ? group.categoryZh : group.categoryEn}
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -120,7 +120,7 @@ function Research({ locale }: { locale: Locale }) {
           title={locale === "zh" ? "研究兴趣" : "Research Interests"}
           description={sites[locale].researchStatement}
         />
-        <div>
+        <div className="grid gap-x-8 md:grid-cols-2">
           {interests.map((item, index) => (
             <ResearchInterestCard key={item.id} item={item} locale={locale} index={index} />
           ))}
@@ -155,9 +155,9 @@ function Research({ locale }: { locale: Locale }) {
         />
         <ol className="grid gap-4 sm:grid-cols-2">
           {sites[locale].futurePlans.map((item, index) => (
-            <li key={item} className="border-t border-[var(--line)] py-5">
+            <li key={item} className="border-t border-[var(--line)] py-4">
               <span className="text-xs text-[var(--accent)]">0{index + 1}</span>
-              <p className="mt-3 text-lg">{item}</p>
+              <p className="mt-2 text-[1.05rem] leading-7">{item}</p>
             </li>
           ))}
         </ol>
@@ -166,9 +166,12 @@ function Research({ locale }: { locale: Locale }) {
         <SectionHeading
           title={locale === "zh" ? "希望进一步研究的问题" : "Questions for Further Study"}
         />
-        <ul className="space-y-4">
+        <ul className="space-y-3">
           {sites[locale].furtherQuestions.map((item) => (
-            <li key={item} className="border-l border-[var(--accent)] pl-5 text-lg leading-8">
+            <li
+              key={item}
+              className="border-l border-[var(--accent)] pl-4 text-[1.05rem] leading-7"
+            >
               {item}
             </li>
           ))}
@@ -200,7 +203,7 @@ function Projects({ locale }: { locale: Locale }) {
 
 function Competitions({ locale }: { locale: Locale }) {
   return (
-    <div>
+    <div className="grid gap-x-10 md:grid-cols-2">
       {competitions.map((item) => (
         <CompetitionCard key={item.id} competition={item} locale={locale} />
       ))}
@@ -216,7 +219,7 @@ function Awards({ locale }: { locale: Locale }) {
     university: { zh: "校级", en: "University" },
   };
   return (
-    <div className="space-y-14">
+    <div className="space-y-10">
       {levels.map((level) => {
         const items = awards
           .filter((item) => item.level === level)
@@ -224,10 +227,12 @@ function Awards({ locale }: { locale: Locale }) {
         if (!items.length) return null;
         return (
           <section key={level}>
-            <h2 className="mb-4 text-3xl">{names[level][locale]}</h2>
-            {items.map((item) => (
-              <AwardItem key={item.id} award={item} locale={locale} />
-            ))}
+            <h2 className="mb-3 text-2xl">{names[level][locale]}</h2>
+            <div className="grid gap-x-10 md:grid-cols-2">
+              {items.map((item) => (
+                <AwardItem key={item.id} award={item} locale={locale} />
+              ))}
+            </div>
           </section>
         );
       })}
@@ -252,14 +257,14 @@ function Contact({ locale }: { locale: Locale }) {
     locale === "zh" ? publicContact.cvRequestSubjectZh : publicContact.cvRequestSubjectEn,
   );
   return (
-    <div className="grid gap-12 md:grid-cols-[1fr_.8fr]">
+    <div className="grid gap-9 md:grid-cols-[1.15fr_.85fr]">
       <div>
         <p className="prose-copy">
           {locale === "zh"
             ? "如需联系或申请查看个人简历，请优先使用学校邮箱。本站不设置联系表单，也不收集访客填写内容。"
             : "Please use the university email for correspondence or to request a CV. This site has no contact form and does not collect visitor submissions."}
         </p>
-        <dl className="mt-9 space-y-6">
+        <dl className="mt-7 grid gap-x-8 gap-y-5 sm:grid-cols-2">
           {publicContact.contactVisibility.schoolEmail && (
             <div>
               <dt className="text-sm text-[var(--muted)]">
@@ -327,7 +332,7 @@ function Contact({ locale }: { locale: Locale }) {
         </dl>
         <a
           href={`mailto:${profile.schoolEmail}?subject=${subject}`}
-          className="mt-10 inline-flex border border-[var(--accent)] px-5 py-3 text-[var(--accent)] transition hover:bg-[var(--accent)] hover:text-[var(--paper)]"
+          className="mt-8 inline-flex border border-[var(--accent)] px-4 py-2.5 text-[0.92rem] text-[var(--accent)] transition hover:bg-[var(--accent)] hover:text-[var(--paper)]"
         >
           {locale === "zh" ? "邮件申请简历" : "Request CV by email"}
         </a>
@@ -399,11 +404,11 @@ function Privacy({ locale }: { locale: Locale }) {
         ],
       ];
   return (
-    <div className="space-y-9">
+    <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
       {sections.map(([title, body]) => (
-        <section key={title} className="border-t border-[var(--line)] pt-5">
-          <h2 className="text-2xl">{title}</h2>
-          <p className="prose-copy mt-3">{body}</p>
+        <section key={title} className="border-t border-[var(--line)] pt-4">
+          <h2 className="text-xl">{title}</h2>
+          <p className="mt-2 text-[0.95rem] leading-7 text-[var(--muted)]">{body}</p>
         </section>
       ))}
     </div>

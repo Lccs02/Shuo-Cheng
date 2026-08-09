@@ -36,24 +36,26 @@ export function SectionHeading({
   return (
     <header>
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <h2 className="mt-3 text-3xl font-normal leading-tight sm:text-4xl">{title}</h2>
-      {description && <p className="prose-copy mt-5 max-w-2xl">{description}</p>}
+      <h2 className="mt-2 text-[1.75rem] font-normal leading-tight sm:text-[2.1rem]">{title}</h2>
+      {description && <p className="prose-copy mt-4 max-w-2xl">{description}</p>}
     </header>
   );
 }
 
 export function EmptyState({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="border-l-2 border-[var(--accent)] bg-[var(--paper-deep)] px-6 py-7">
-      <p className="text-lg">{title}</p>
-      {description && <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p>}
+    <div className="border-l-2 border-[var(--accent)] bg-[var(--paper-deep)] px-5 py-5">
+      <p className="text-[1.05rem]">{title}</p>
+      {description && (
+        <p className="mt-1.5 text-[0.9rem] leading-6 text-[var(--muted)]">{description}</p>
+      )}
     </div>
   );
 }
 
 export function SkillTag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex rounded-full border border-[var(--line)] px-3 py-1 text-xs text-[var(--muted)]">
+    <span className="inline-flex rounded-full border border-[var(--line)] px-2.5 py-0.5 text-[0.76rem] text-[var(--muted)]">
       {children}
     </span>
   );
@@ -61,7 +63,7 @@ export function SkillTag({ children }: { children: ReactNode }) {
 
 export function PrivacyNotice({ children }: { children: ReactNode }) {
   return (
-    <aside className="border border-[var(--line)] bg-[var(--paper-deep)] p-6 text-sm leading-7 text-[var(--muted)]">
+    <aside className="border border-[var(--line)] bg-[var(--paper-deep)] p-5 text-[0.9rem] leading-6 text-[var(--muted)]">
       {children}
     </aside>
   );

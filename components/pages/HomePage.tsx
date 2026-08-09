@@ -25,7 +25,7 @@ function MoreLink({ locale, path }: { locale: Locale; path: string }) {
   return (
     <a
       href={hrefFor(locale, path)}
-      className="mt-7 inline-flex items-center gap-2 text-sm text-[var(--accent)]"
+      className="mt-5 inline-flex items-center gap-2 text-sm text-[var(--accent)]"
     >
       {labels(locale).all}
       <ArrowRight size={14} aria-hidden />
@@ -50,6 +50,16 @@ export function HomePage({ locale }: { locale: Locale }) {
     { value: stats.provincial, zh: "省级奖项", en: "Provincial awards" },
     { value: stats.selectedProjects, zh: "精选项目", en: "Selected projects" },
   ].filter((item) => item.value > 0);
+  const statisticGridClass =
+    statisticItems.length === 1
+      ? "md:grid-cols-1"
+      : statisticItems.length === 2
+        ? "md:grid-cols-2"
+        : statisticItems.length === 3
+          ? "md:grid-cols-3"
+          : statisticItems.length === 4
+            ? "md:grid-cols-4"
+            : "md:grid-cols-5";
 
   return (
     <main id="main-content">
@@ -61,7 +71,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           title={locale === "zh" ? "研究兴趣" : "Research Interests"}
           description={sites[locale].researchStatement}
         />
-        <div>
+        <div className="grid gap-x-8 md:grid-cols-2">
           {interests.map((item, index) => (
             <ResearchInterestCard key={item.id} item={item} locale={locale} index={index} />
           ))}
@@ -72,11 +82,13 @@ export function HomePage({ locale }: { locale: Locale }) {
           aria-label={locale === "zh" ? "成果统计" : "Achievement statistics"}
           className="border-t border-[var(--line)] bg-[var(--paper-deep)]"
         >
-          <div className="shell grid grid-cols-2 divide-x divide-[var(--line)] md:grid-cols-4">
+          <div
+            className={`shell grid grid-cols-2 divide-x divide-[var(--line)] ${statisticGridClass}`}
+          >
             {statisticItems.map((item) => (
-              <div key={item.zh} className="px-5 py-8 first:pl-0">
-                <strong className="text-4xl font-normal text-[var(--accent)]">{item.value}</strong>
-                <p className="mt-2 text-sm text-[var(--muted)]">
+              <div key={item.zh} className="px-5 py-5 first:pl-0 last:pr-0">
+                <strong className="text-3xl font-normal text-[var(--accent)]">{item.value}</strong>
+                <p className="mt-1 text-sm text-[var(--muted)]">
                   {locale === "zh" ? item.zh : item.en}
                 </p>
               </div>
@@ -111,7 +123,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <SectionHeading eyebrow="Competitions" title={t.competitions} />
           <MoreLink locale={locale} path="competitions" />
         </div>
-        <div>
+        <div className="grid gap-x-8 md:grid-cols-2">
           {featuredCompetitions.map((item) => (
             <CompetitionCard key={item.id} competition={item} locale={locale} />
           ))}
@@ -122,7 +134,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <SectionHeading eyebrow="Honors" title={t.awards} />
           <MoreLink locale={locale} path="awards" />
         </div>
-        <div>
+        <div className="grid gap-x-8 md:grid-cols-2">
           {featuredAwards.map((item) => (
             <AwardItem key={item.id} award={item} locale={locale} />
           ))}
@@ -157,11 +169,11 @@ export function HomePage({ locale }: { locale: Locale }) {
           )}
         </div>
       </section>
-      <section className="border-t border-[var(--line)] bg-[var(--ink)] py-16 text-[var(--paper)]">
-        <div className="shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+      <section className="border-t border-[var(--line)] bg-[var(--ink)] py-12 text-[var(--paper)]">
+        <div className="shell grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <p className="eyebrow">{locale === "zh" ? "联系方式" : "Contact"}</p>
-            <h2 className="mt-4 max-w-3xl text-3xl leading-snug sm:text-5xl">
+            <h2 className="mt-3 max-w-3xl text-2xl leading-snug sm:text-[2.35rem]">
               {locale === "zh"
                 ? "研究信息、公开材料与联系方式集中于此。"
                 : "Research details, public materials, and contact information in one place."}

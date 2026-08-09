@@ -21,7 +21,7 @@ export function DesktopNavigation({ locale }: { locale: Locale }) {
   const pathname = withoutBasePath(usePathname());
   return (
     <nav aria-label={locale === "zh" ? "主导航" : "Primary navigation"} className="hidden lg:block">
-      <ul className="flex items-center gap-5 text-[0.78rem]">
+      <ul className="flex items-center gap-5 text-[0.82rem]">
         {navigation.map((item) => {
           const href = itemHref(locale, item.path);
           const routePath = withoutBasePath(href);
@@ -115,16 +115,16 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--header)] backdrop-blur-md">
-      <div className="shell flex h-[4.75rem] items-center justify-between gap-5">
+      <div className="shell flex h-[4.25rem] items-center justify-between gap-5">
         <a
           href={hrefFor(locale)}
           className="flex items-baseline gap-3"
           aria-label={locale === "zh" ? "程硕首页" : "Shuo Cheng home"}
         >
-          <span className="text-xl font-bold">
+          <span className="text-[1.15rem] font-bold">
             {locale === "zh" ? profile.nameZh : profile.nameEn}
           </span>
-          <span className="hidden text-[0.68rem] tracking-[0.16em] text-[var(--muted)] sm:inline">
+          <span className="hidden text-[0.7rem] tracking-[0.14em] text-[var(--muted)] sm:inline">
             ACADEMIC HOMEPAGE
           </span>
         </a>
