@@ -31,7 +31,7 @@ export function ResearchInterestCard({
   const Icon = icons[item.icon as keyof typeof icons] ?? Network;
   return (
     <article className="group grid grid-cols-[2.25rem_1fr] gap-3 border-t border-[var(--line)] py-4.5">
-      <div className="pt-0.5 text-[var(--accent)] transition-transform duration-200 group-hover:translate-y-[-2px]">
+      <div className="pt-0.5 text-[var(--signal)] transition-transform duration-200 group-hover:translate-y-[-2px]">
         <Icon size={19} strokeWidth={1.5} aria-hidden />
       </div>
       <div>

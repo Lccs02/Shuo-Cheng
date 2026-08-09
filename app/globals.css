@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f7f4ee;
-  --paper-deep: #eee9df;
-  --ink: #1d1c1a;
-  --muted: #68635d;
-  --line: #d5cec2;
-  --accent: #8f2f2d;
-  --accent-soft: #ead8d4;
+  --paper: #f3f7f6;
+  --paper-deep: #e5eeee;
+  --ink: #17262c;
+  --muted: #56696f;
+  --line: #c3d2d2;
+  --accent: #a33e3b;
+  --accent-soft: #efd9d6;
+  --signal: #247c78;
+  --signal-soft: #cee5e2;
+  --signal-alt: #b87837;
   --header: color-mix(in srgb, var(--paper) 92%, transparent);
   color-scheme: light;
 }
 
 :root.dark {
-  --paper: #171716;
-  --paper-deep: #22211f;
-  --ink: #eeeae2;
-  --muted: #aaa49b;
-  --line: #3c3934;
-  --accent: #c06b66;
-  --accent-soft: #462c2a;
+  --paper: #081419;
+  --paper-deep: #102229;
+  --ink: #eaf2f0;
+  --muted: #9db0b4;
+  --line: #2a434a;
+  --accent: #d46c65;
+  --accent-soft: #40292b;
+  --signal: #58b7af;
+  --signal-soft: #173b3c;
+  --signal-alt: #d1a05a;
   --header: color-mix(in srgb, var(--paper) 91%, transparent);
   color-scheme: dark;
 }
@@ -54,7 +60,7 @@ a {
 }
 ::selection {
   color: var(--ink);
-  background: var(--accent-soft);
+  background: var(--signal-soft);
 }
 
 .shell {
@@ -136,6 +142,32 @@ a {
       transparent 3px
     );
 }
+.orbital-agent-field {
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  mask-image: linear-gradient(90deg, transparent 2%, rgb(0 0 0 / 42%) 35%, #000 58%);
+}
+.hero-atmosphere {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 80% 38%,
+      color-mix(in srgb, var(--signal) 13%, transparent),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 92% 78%,
+      color-mix(in srgb, var(--signal-alt) 8%, transparent),
+      transparent 25%
+    );
+}
+.profile-frame {
+  box-shadow:
+    18px 18px 0 -17px var(--signal),
+    0 1.5rem 5rem color-mix(in srgb, var(--signal) 16%, transparent);
+}
 @keyframes reveal {
   from {
     opacity: 0;
@@ -162,6 +194,10 @@ a {
   }
   .display {
     font-size: clamp(3rem, 14vw, 4.5rem);
+  }
+  .orbital-agent-field {
+    opacity: 0.78;
+    mask-image: linear-gradient(180deg, transparent 4%, rgb(0 0 0 / 42%) 30%, #000 52%);
   }
 }
 @media (prefers-reduced-motion: reduce) {

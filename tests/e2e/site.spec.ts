@@ -46,6 +46,28 @@ test("theme choice persists", async ({ page }) => {
     .toBe(!initiallyDark);
 });
 
+test("orbital multi-agent field initializes", async ({ page }) => {
+  await page.goto(sitePath("/"));
+  const field = page.getByTestId("orbital-agent-field");
+  await expect(field).toBeVisible();
+  await expect
+    .poll(() => field.evaluate((element: HTMLCanvasElement) => element.width))
+    .toBeGreaterThan(300);
+});
+
+test("orbital field stays still when reduced motion is requested", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(sitePath("/"));
+  const field = page.getByTestId("orbital-agent-field");
+  await expect
+    .poll(() => field.evaluate((element: HTMLCanvasElement) => element.width))
+    .toBeGreaterThan(300);
+  const firstFrame = await field.evaluate((element: HTMLCanvasElement) => element.toDataURL());
+  await page.waitForTimeout(120);
+  const secondFrame = await field.evaluate((element: HTMLCanvasElement) => element.toDataURL());
+  expect(secondFrame).toBe(firstFrame);
+});
+
 test("private fields remain absent", async ({ page }) => {
   await page.goto(sitePath("/contact/"));
   await expect(page.locator("body")).not.toContainText("private-person@example.invalid");

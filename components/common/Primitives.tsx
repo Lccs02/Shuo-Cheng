@@ -55,7 +55,7 @@ export function EmptyState({ title, description }: { title: string; description?
 
 export function SkillTag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex rounded-full border border-[var(--line)] px-2.5 py-0.5 text-[0.76rem] text-[var(--muted)]">
+    <span className="inline-flex rounded-full border border-[var(--line)] bg-[var(--signal-soft)] px-2.5 py-0.5 text-[0.76rem] text-[var(--muted)]">
       {children}
     </span>
   );
