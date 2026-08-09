@@ -61,7 +61,7 @@ export function MotionOrchestrator() {
             revealObserver?.unobserve(entry.target);
           });
         },
-        { rootMargin: "0px 0px -9%", threshold: 0.08 },
+        { rootMargin: "0px 0px -4%", threshold: 0.04 },
       );
       motionItems.forEach((item) => revealObserver?.observe(item));
       updateScroll();
