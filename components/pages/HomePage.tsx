@@ -18,8 +18,9 @@ import {
   researchTopics,
   sites,
 } from "@/lib/content";
+import type { Locale } from "@/types/content";
 
-export function HomePage() {
+export function HomePage({ locale }: { locale: Locale }) {
   const visibleResearch = researchTopics.filter((item) => item.visible);
   const visiblePublications = publications.filter((item) => item.visible && item.selected);
   const visibleResearchExperience = researchExperiences.filter((item) => item.visible);
@@ -36,15 +37,19 @@ export function HomePage() {
 
   return (
     <main id="main-content">
-      <DocumentLanguage locale="en" />
-      <Hero />
-      <ResearchJourney topics={visibleResearch} introduction={sites.en.researchJourneyIntro} />
-      <PublicationList publications={visiblePublications} />
-      <ResearchExperience items={visibleResearchExperience} />
-      <ResearchProjectList projects={visibleProjects} />
-      <Awards awards={visibleAwards} />
-      <Education items={visibleEducation} />
-      <News items={visibleNews} />
+      <DocumentLanguage locale={locale} />
+      <Hero locale={locale} />
+      <ResearchJourney
+        topics={visibleResearch}
+        introduction={sites[locale].researchJourneyIntro}
+        locale={locale}
+      />
+      <PublicationList publications={visiblePublications} locale={locale} />
+      <ResearchExperience items={visibleResearchExperience} locale={locale} />
+      <ResearchProjectList projects={visibleProjects} locale={locale} />
+      <Awards awards={visibleAwards} locale={locale} />
+      <Education items={visibleEducation} locale={locale} />
+      <News items={visibleNews} locale={locale} />
     </main>
   );
 }

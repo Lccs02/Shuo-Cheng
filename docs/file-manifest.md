@@ -37,6 +37,7 @@ components/home/ResearchProjectList.tsx
 components/home/ResearchVisual.tsx
 components/layout/Footer.tsx
 components/layout/Header.tsx
+components/layout/LanguageSwitcher.tsx
 components/layout/ThemeSwitcher.tsx
 components/pages/ContentPage.tsx
 components/pages/HomePage.tsx

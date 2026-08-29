@@ -1,7 +1,13 @@
 import { PublicationCard } from "@/components/research/ResearchComponents";
-import type { Publication } from "@/types/content";
+import type { Locale, Publication } from "@/types/content";
 
-export function PublicationList({ publications }: { publications: Publication[] }) {
+export function PublicationList({
+  publications,
+  locale,
+}: {
+  publications: Publication[];
+  locale: Locale;
+}) {
   if (!publications.length) return null;
 
   return (
@@ -12,12 +18,12 @@ export function PublicationList({ publications }: { publications: Publication[] 
       data-motion
     >
       <header className="home-section-header">
-        <p className="eyebrow">Research output</p>
-        <h2 id="publications-title">Selected Publications</h2>
+        <p className="eyebrow">{locale === "zh" ? "科研成果" : "Research output"}</p>
+        <h2 id="publications-title">{locale === "zh" ? "精选论文" : "Selected Publications"}</h2>
       </header>
       <div className="publication-list">
         {publications.map((publication) => (
-          <PublicationCard key={publication.id} publication={publication} locale="en" />
+          <PublicationCard key={publication.id} publication={publication} locale={locale} />
         ))}
       </div>
     </section>

@@ -44,22 +44,30 @@ export const pageSections = [
 ] as const;
 type PageSection = (typeof pageSections)[number];
 
-const pageTitles: Record<PageSection, { zh: string; en: string; eyebrow: string }> = {
-  about: { zh: "关于我", en: "About", eyebrow: "Profile" },
-  research: { zh: "科研", en: "Research", eyebrow: "Research" },
-  projects: { zh: "工程项目", en: "Projects", eyebrow: "Engineering" },
-  competitions: { zh: "竞赛经历", en: "Competitions", eyebrow: "Competitions" },
-  awards: { zh: "荣誉奖项", en: "Awards", eyebrow: "Honors" },
-  experience: { zh: "其他经历", en: "Experience", eyebrow: "Timeline" },
-  contact: { zh: "联系方式", en: "Contact", eyebrow: "Contact" },
-  privacy: { zh: "隐私说明", en: "Privacy Notice", eyebrow: "Privacy" },
+const pageTitles: Record<
+  PageSection,
+  { zh: string; en: string; eyebrowZh: string; eyebrowEn: string }
+> = {
+  about: { zh: "关于我", en: "About", eyebrowZh: "个人简介", eyebrowEn: "Profile" },
+  research: { zh: "科研", en: "Research", eyebrowZh: "研究工作", eyebrowEn: "Research" },
+  projects: { zh: "工程项目", en: "Projects", eyebrowZh: "工程实践", eyebrowEn: "Engineering" },
+  competitions: {
+    zh: "竞赛经历",
+    en: "Competitions",
+    eyebrowZh: "竞赛成果",
+    eyebrowEn: "Competitions",
+  },
+  awards: { zh: "荣誉奖项", en: "Awards", eyebrowZh: "荣誉", eyebrowEn: "Honors" },
+  experience: { zh: "其他经历", en: "Experience", eyebrowZh: "时间轴", eyebrowEn: "Timeline" },
+  contact: { zh: "联系方式", en: "Contact", eyebrowZh: "联系", eyebrowEn: "Contact" },
+  privacy: { zh: "隐私说明", en: "Privacy Notice", eyebrowZh: "隐私", eyebrowEn: "Privacy" },
 };
 
 function PageIntro({ locale, section }: { locale: Locale; section: PageSection }) {
   const title = pageTitles[section];
   return (
     <header className="mb-10 border-b border-[var(--line)] pb-7">
-      <p className="eyebrow">{title.eyebrow}</p>
+      <p className="eyebrow">{locale === "zh" ? title.eyebrowZh : title.eyebrowEn}</p>
       <h1 className="mt-3 text-4xl font-normal leading-tight sm:text-[3.4rem]">{title[locale]}</h1>
     </header>
   );

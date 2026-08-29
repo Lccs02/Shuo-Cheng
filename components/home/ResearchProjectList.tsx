@@ -1,7 +1,7 @@
 import { ProjectCard } from "@/components/projects/ProjectComponents";
-import type { Project } from "@/types/content";
+import type { Locale, Project } from "@/types/content";
 
-export function ResearchProjectList({ projects }: { projects: Project[] }) {
+export function ResearchProjectList({ projects, locale }: { projects: Project[]; locale: Locale }) {
   if (!projects.length) return null;
 
   return (
@@ -12,12 +12,14 @@ export function ResearchProjectList({ projects }: { projects: Project[] }) {
       data-motion
     >
       <header className="home-section-header">
-        <p className="eyebrow">Research systems</p>
-        <h2 id="projects-title">Selected Research Projects</h2>
+        <p className="eyebrow">{locale === "zh" ? "研究系统" : "Research systems"}</p>
+        <h2 id="projects-title">
+          {locale === "zh" ? "精选科研项目" : "Selected Research Projects"}
+        </h2>
       </header>
       <div className="project-list">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} locale="en" />
+          <ProjectCard key={project.id} project={project} locale={locale} />
         ))}
       </div>
     </section>

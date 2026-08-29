@@ -1,7 +1,13 @@
 import { ResearchExperienceList } from "@/components/awards/TimelineComponents";
-import type { ResearchExperience as ResearchExperienceItem } from "@/types/content";
+import type { Locale, ResearchExperience as ResearchExperienceItem } from "@/types/content";
 
-export function ResearchExperience({ items }: { items: ResearchExperienceItem[] }) {
+export function ResearchExperience({
+  items,
+  locale,
+}: {
+  items: ResearchExperienceItem[];
+  locale: Locale;
+}) {
   if (!items.length) return null;
 
   return (
@@ -12,10 +18,10 @@ export function ResearchExperience({ items }: { items: ResearchExperienceItem[] 
       data-motion
     >
       <header className="home-section-header">
-        <p className="eyebrow">Academic path</p>
-        <h2 id="experience-title">Research Experience</h2>
+        <p className="eyebrow">{locale === "zh" ? "学术路径" : "Academic path"}</p>
+        <h2 id="experience-title">{locale === "zh" ? "科研经历" : "Research Experience"}</h2>
       </header>
-      <ResearchExperienceList items={items} locale="en" />
+      <ResearchExperienceList items={items} locale={locale} />
     </section>
   );
 }

@@ -16,6 +16,7 @@ import {
 } from "@/lib/content";
 import { withBasePath, withoutBasePath } from "@/lib/paths";
 import type { Locale } from "@/types/content";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
 function useRouteLocale(): Locale {
@@ -45,7 +46,7 @@ function NavigationLinks({ locale, onNavigate }: { locale: Locale; onNavigate?: 
       {visibleNavigation.map((item) => (
         <li key={item.path}>
           <a className="nav-link" href={itemHref(locale, item.path)} onClick={onNavigate}>
-            {item.en}
+            {locale === "zh" ? item.zh : item.en}
           </a>
         </li>
       ))}
@@ -62,7 +63,10 @@ function NavigationLinks({ locale, onNavigate }: { locale: Locale; onNavigate?: 
 
 export function DesktopNavigation({ locale }: { locale: Locale }) {
   return (
-    <nav aria-label="Primary navigation" className="desktop-navigation">
+    <nav
+      aria-label={locale === "zh" ? "主导航" : "Primary navigation"}
+      className="desktop-navigation"
+    >
       <ul>
         <NavigationLinks locale={locale} />
       </ul>
@@ -81,12 +85,18 @@ export function MobileNavigation({ locale }: { locale: Locale }) {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls="mobile-nav"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={
+          locale === "zh" ? (open ? "关闭菜单" : "打开菜单") : open ? "Close menu" : "Open menu"
+        }
       >
         {open ? <X size={19} aria-hidden /> : <Menu size={19} aria-hidden />}
       </button>
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile navigation" className="mobile-menu">
+        <nav
+          id="mobile-nav"
+          aria-label={locale === "zh" ? "移动端导航" : "Mobile navigation"}
+          className="mobile-menu"
+        >
           <ul>
             <NavigationLinks locale={locale} onNavigate={() => setOpen(false)} />
           </ul>
@@ -102,13 +112,18 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <a href={hrefFor(locale)} className="site-name" aria-label="Shuo Cheng home">
-          <span>{profile.nameEn}</span>
-          <small>Academic Homepage</small>
+        <a
+          href={hrefFor(locale)}
+          className="site-name"
+          aria-label={locale === "zh" ? "程硕学术主页" : "Shuo Cheng home"}
+        >
+          <span>{locale === "zh" ? profile.nameZh : profile.nameEn}</span>
+          <small>{locale === "zh" ? "个人学术主页" : "Academic Homepage"}</small>
         </a>
         <div className="header-actions">
           <DesktopNavigation locale={locale} />
-          <ThemeSwitcher locale="en" />
+          <LanguageSwitcher locale={locale} />
+          <ThemeSwitcher locale={locale} />
           <MobileNavigation locale={locale} />
         </div>
       </div>

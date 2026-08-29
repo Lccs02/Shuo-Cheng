@@ -2,16 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 
 const outputRoot = path.join(process.cwd(), "out");
-const chineseSections = new Set([
-  "about",
-  "research",
-  "projects",
-  "competitions",
-  "awards",
-  "experience",
-  "contact",
-  "privacy",
-]);
 let updated = 0;
 
 function visit(directory) {
@@ -27,7 +17,7 @@ function visit(directory) {
 
     const relativePath = path.relative(outputRoot, fullPath);
     const firstSegment = relativePath.split(path.sep)[0];
-    const language = chineseSections.has(firstSegment) ? "zh-CN" : "en";
+    const language = firstSegment === "en" ? "en" : "zh-CN";
     const source = fs.readFileSync(fullPath, "utf8");
     const result = source.replace(/<html lang="[^"]+"/, `<html lang="${language}"`);
     if (result !== source) {

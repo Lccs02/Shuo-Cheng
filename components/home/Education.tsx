@@ -1,6 +1,6 @@
-import type { Education as EducationItem } from "@/types/content";
+import type { Education as EducationItem, Locale } from "@/types/content";
 
-export function Education({ items }: { items: EducationItem[] }) {
+export function Education({ items, locale }: { items: EducationItem[]; locale: Locale }) {
   if (!items.length) return null;
 
   return (
@@ -11,20 +11,20 @@ export function Education({ items }: { items: EducationItem[] }) {
       data-motion
     >
       <header className="home-section-header compact">
-        <p className="eyebrow">Academic background</p>
-        <h2 id="education-title">Education</h2>
+        <p className="eyebrow">{locale === "zh" ? "学术背景" : "Academic background"}</p>
+        <h2 id="education-title">{locale === "zh" ? "教育经历" : "Education"}</h2>
       </header>
       <div className="education-list">
         {items.map((item) => (
           <article key={item.id} className="education-entry">
-            <p className="entry-date">{item.periodEn}</p>
+            <p className="entry-date">{locale === "zh" ? item.periodZh : item.periodEn}</p>
             <div>
               <div className="entry-heading">
-                <h3>{item.institutionEn}</h3>
-                <span>{item.locationEn}</span>
+                <h3>{locale === "zh" ? item.institutionZh : item.institutionEn}</h3>
+                <span>{locale === "zh" ? item.locationZh : item.locationEn}</span>
               </div>
-              <p>{item.programEn}</p>
-              <p>{item.schoolEn}</p>
+              <p>{locale === "zh" ? item.programZh : item.programEn}</p>
+              <p>{locale === "zh" ? item.schoolZh : item.schoolEn}</p>
               {(item.gpa || item.rank) && (
                 <p className="education-metrics">
                   {[item.gpa && `GPA: ${item.gpa}`, item.rank && `Rank: ${item.rank}`]

@@ -1,11 +1,14 @@
 import { ExternalLink } from "@/components/common/Primitives";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { withBasePath } from "@/lib/paths";
-import type { NewsItem } from "@/types/content";
+import type { Locale, NewsItem } from "@/types/content";
 
-const newsDate = new Intl.DateTimeFormat("en", { month: "short", year: "numeric" });
+const newsDates = {
+  zh: new Intl.DateTimeFormat("zh-CN", { month: "2-digit", year: "numeric" }),
+  en: new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }),
+};
 
-export function News({ items }: { items: NewsItem[] }) {
+export function News({ items, locale }: { items: NewsItem[]; locale: Locale }) {
   if (!items.length) return null;
 
   return (
@@ -16,21 +19,25 @@ export function News({ items }: { items: NewsItem[] }) {
       data-motion
     >
       <header className="home-section-header compact">
-        <p className="eyebrow">Updates</p>
-        <h2 id="news-title">News</h2>
+        <p className="eyebrow">{locale === "zh" ? "近期动态" : "Updates"}</p>
+        <h2 id="news-title">{locale === "zh" ? "动态" : "News"}</h2>
       </header>
       <div className="news-list">
         {items.map((item) => (
           <article key={item.id} className={item.image ? "news-entry with-image" : "news-entry"}>
             <time dateTime={item.date}>
-              {newsDate.format(
+              {newsDates[locale].format(
                 new Date(`${item.date.length === 7 ? `${item.date}-01` : item.date}T00:00:00Z`),
               )}
             </time>
             <div className="news-content">
               <p>
                 {item.link ? (
-                  <ExternalLink href={item.link}>{item.contentEn}</ExternalLink>
+                  <ExternalLink href={item.link}>
+                    {locale === "zh" ? item.contentZh : item.contentEn}
+                  </ExternalLink>
+                ) : locale === "zh" ? (
+                  item.contentZh
                 ) : (
                   item.contentEn
                 )}
@@ -41,17 +48,25 @@ export function News({ items }: { items: NewsItem[] }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="news-evidence"
-                  aria-label="View the BWTAC'26 acceptance email image"
+                  aria-label={
+                    locale === "zh"
+                      ? "查看 BWTAC'26 论文录用邮件图片"
+                      : "View the BWTAC'26 acceptance email image"
+                  }
                 >
                   <span className="news-evidence-image">
                     <ImageWithFallback
                       src={item.image}
-                      alt={item.imageAltEn ?? "News evidence image"}
-                      sizes="(max-width: 800px) 100vw, 620px"
+                      alt={
+                        locale === "zh"
+                          ? (item.imageAltZh ?? "动态证明图片")
+                          : (item.imageAltEn ?? "News evidence image")
+                      }
+                      sizes="(max-width: 800px) calc(100vw - 32px), 384px"
                       className="news-evidence-image-content"
                     />
                   </span>
-                  <span>View acceptance email ↗</span>
+                  <span>{locale === "zh" ? "查看录用邮件 ↗" : "View acceptance email ↗"}</span>
                 </a>
               )}
             </div>
