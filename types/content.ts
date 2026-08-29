@@ -30,12 +30,16 @@ export type Publication = {
 
 export type ResearchTopic = {
   id: string;
+  phase: "understanding" | "representation" | "decision";
+  phaseLabelZh: string;
+  phaseLabelEn: string;
   titleZh: string;
   titleEn: string;
+  subtitleZh: string;
+  subtitleEn: string;
   descriptionZh: string;
   descriptionEn: string;
   keywords: string[];
-  stage: "active" | "current_interest";
   paperUrl?: string;
   codeUrl?: string;
   projectUrl?: string;
@@ -72,6 +76,36 @@ export type NewsItem = {
   type: "publication" | "research" | "award" | "education" | "other";
   link?: string;
   visible: boolean;
+};
+
+export type Award = {
+  id: string;
+  nameZh: string;
+  nameEn: string;
+  distinctionZh: string;
+  distinctionEn: string;
+  year?: number;
+  issuerZh?: string;
+  issuerEn?: string;
+  descriptionZh?: string;
+  descriptionEn?: string;
+  certificate?: string;
+};
+
+export type Education = {
+  id: string;
+  institutionZh: string;
+  institutionEn: string;
+  periodZh: string;
+  periodEn: string;
+  schoolZh: string;
+  schoolEn: string;
+  programZh: string;
+  programEn: string;
+  locationZh: string;
+  locationEn: string;
+  gpa?: string;
+  rank?: string;
 };
 
 export type Competition = {

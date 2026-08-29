@@ -1,8 +1,7 @@
 {
   "siteTitle": "Shuo Cheng | Academic Homepage",
   "siteDescription": "Shuo Cheng is an undergraduate researcher at Hangzhou Dianzi University working on satellite networks, network resource management, reinforcement learning, and spatio-temporal learning.",
-  "homeEyebrow": "Undergraduate Researcher",
-  "researchStatement": "I work on intelligent networked systems, with a focus on learning-based resource management, spatio-temporal modeling, and network-state forecasting for dynamic and satellite networks.",
+  "researchJourneyIntro": "My research explores how network dynamics can be modeled, represented, and ultimately used for intelligent decision-making.",
   "futurePlans": [
     "Resource modeling and scheduling in complex network environments",
     "Dynamic resource management in satellite networks",

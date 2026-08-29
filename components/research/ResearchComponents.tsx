@@ -7,20 +7,18 @@ import type { Locale, Publication, ResearchTopic } from "@/types/content";
 export function ResearchTopicList({ topics, locale }: { topics: ResearchTopic[]; locale: Locale }) {
   return (
     <div className="academic-list">
-      {topics.map((topic, index) => (
-        <article key={topic.id} className="research-row">
-          <p className="academic-index">{String(index + 1).padStart(2, "0")}</p>
+      {topics.map((topic) => (
+        <article key={topic.id} className="research-topic-row">
+          <p className="research-topic-phase">
+            {locale === "zh" ? topic.phaseLabelZh : topic.phaseLabelEn}
+          </p>
           <div>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="academic-item-title">
-                {locale === "zh" ? topic.titleZh : topic.titleEn}
-              </h3>
-              {topic.stage === "current_interest" && (
-                <span className="text-xs text-[var(--muted)]">
-                  {locale === "zh" ? "当前研究兴趣" : "Current research interest"}
-                </span>
-              )}
-            </div>
+            <h3 className="academic-item-title">
+              {locale === "zh" ? topic.titleZh : topic.titleEn}
+            </h3>
+            <p className="research-topic-subtitle">
+              {locale === "zh" ? topic.subtitleZh : topic.subtitleEn}
+            </p>
             <p className="mt-2 leading-7 text-[var(--muted)]">
               {locale === "zh" ? topic.descriptionZh : topic.descriptionEn}
             </p>
@@ -79,20 +77,20 @@ export function PublicationCard({
   const description = locale === "zh" ? publication.descriptionZh : publication.descriptionEn;
   return (
     <article
-      className={publication.thumbnail ? "publication-row" : "border-t border-[var(--line)] py-6"}
+      className={publication.thumbnail ? "publication-entry with-teaser" : "publication-entry"}
     >
       {publication.thumbnail && (
-        <div className="relative aspect-[16/10] overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+        <div className="publication-teaser">
           <ImageWithFallback
             src={publication.thumbnail}
             alt={`${publication.title} teaser`}
             sizes="(max-width: 720px) 100vw, 210px"
-            className="transition duration-500 ease-out hover:scale-[1.02]"
+            className="publication-teaser-image"
           />
         </div>
       )}
       <div>
-        <h3 className="academic-item-title break-words">{publication.title}</h3>
+        <h3 className="publication-title">{publication.title}</h3>
         <p className="mt-1.5 text-[0.95rem] leading-6 text-[var(--muted)]">
           {publication.authors.map((author, index) => (
             <span key={`${author}-${index}`}>
@@ -105,14 +103,18 @@ export function PublicationCard({
             </span>
           ))}
         </p>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <div className="publication-meta">
           {(publication.venue || publication.year) && (
-            <span className="italic text-[var(--muted)]">
-              {[publication.venue, publication.year].filter(Boolean).join(", ")}
-            </span>
+            <>
+              <span className="italic text-[var(--muted)]">
+                {[publication.venue, publication.year].filter(Boolean).join(", ")}
+              </span>
+              <span aria-hidden="true">·</span>
+            </>
           )}
           <PublicationStatusBadge status={publication.status} locale={locale} />
         </div>
+        {description && <p className="publication-description">{description}</p>}
         <div className="academic-links mt-3">
           {publication.paperUrl && <ExternalLink href={publication.paperUrl}>Paper</ExternalLink>}
           {publication.codeUrl && <ExternalLink href={publication.codeUrl}>Code</ExternalLink>}
@@ -128,9 +130,6 @@ export function PublicationCard({
           )}
           <BibtexDialog publication={publication} locale={locale} />
         </div>
-        {description && (
-          <p className="mt-3 text-[0.95rem] leading-7 text-[var(--muted)]">{description}</p>
-        )}
       </div>
     </article>
   );

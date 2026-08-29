@@ -1,83 +1,71 @@
-import { Mail } from "lucide-react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { ExternalLink } from "@/components/common/Primitives";
-import { profile, sites } from "@/lib/content";
-import type { Locale } from "@/types/content";
+import { profile } from "@/lib/content";
+import { withBasePath } from "@/lib/paths";
 
-export function ProfilePhoto({ locale }: { locale: Locale }) {
+export function ProfilePhoto() {
+  if (!profile.photoVisible || !profile.photo) return null;
+
   return (
-    <div className="relative aspect-[4/5] overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+    <div className="profile-photo">
       <ImageWithFallback
         src={profile.photo}
-        alt={locale === "zh" ? profile.photoAltZh : profile.photoAltEn}
+        alt={profile.photoAltEn}
         priority
-        className="transition duration-500 ease-out hover:scale-[1.02]"
+        sizes="(max-width: 768px) 280px, 320px"
+        className="profile-photo-image"
       />
     </div>
   );
 }
 
-export function SocialLinks() {
+export function AcademicLinks() {
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.95rem]">
-      {profile.cvUrl && <ExternalLink href={profile.cvUrl}>CV</ExternalLink>}
-      {profile.scholarUrl && <ExternalLink href={profile.scholarUrl}>Google Scholar</ExternalLink>}
+    <nav className="academic-links" aria-label="Academic profiles and contact">
+      {profile.cvUrl && <a href={withBasePath(profile.cvUrl)}>CV</a>}
       <ExternalLink href={profile.github}>GitHub</ExternalLink>
+      {profile.scholarUrl && <ExternalLink href={profile.scholarUrl}>Google Scholar</ExternalLink>}
       <ExternalLink href={`https://orcid.org/${profile.orcid}`}>ORCID</ExternalLink>
-      <a
-        href={`mailto:${profile.schoolEmail}`}
-        className="inline-flex items-center gap-1 text-[var(--accent)]"
-      >
-        <Mail size={15} aria-hidden />
-        Email
-      </a>
-    </div>
+      <a href={`mailto:${profile.schoolEmail}`}>Email</a>
+    </nav>
   );
 }
 
-export function Hero({ locale }: { locale: Locale }) {
-  const site = sites[locale];
+export function Hero() {
+  const expectedYear = profile.period.split("—")[1];
+
   return (
-    <section className="hero" data-hero>
-      <div className="academic-shell">
-        <div className={profile.photoVisible ? "hero-grid" : "max-w-[48rem]"}>
-          <div className="reveal">
-            <p className="hero-eyebrow">{site.homeEyebrow}</p>
-            <h1 className="mt-3 text-[2.55rem] font-semibold leading-tight tracking-[-0.025em] sm:text-[2.85rem]">
-              {profile.nameEn}
-              <span className="ml-3 text-[0.62em] font-normal tracking-normal text-[var(--muted)]">
-                {profile.nameZh}
-              </span>
-            </h1>
-            <div className="mt-4 text-[1.02rem] leading-7">
-              <p>
-                {locale === "zh" ? profile.majorZh : profile.majorEn} ·{" "}
-                {locale === "zh" ? profile.degreeZh : profile.degreeEn}
-              </p>
-              <p className="text-[var(--muted)]">
-                {locale === "zh" ? profile.schoolZh : profile.schoolEn}
-              </p>
-              <p className="text-[var(--muted)]">
-                {locale === "zh" ? profile.universityZh : profile.universityEn} · {profile.period} ·{" "}
-                {locale === "zh" ? profile.locationZh : profile.locationEn}
-              </p>
-            </div>
-            <p className="mt-6 max-w-[46rem] text-[1.04rem] leading-[1.75] text-[var(--ink)]">
-              {site.researchStatement}
+    <section className="home-hero academic-shell" aria-labelledby="home-title">
+      <div className={profile.photoVisible && profile.photo ? "hero-layout" : "hero-copy-only"}>
+        <div>
+          <h1 id="home-title" className="hero-name">
+            {profile.nameEn}
+            <span lang="zh-CN">{profile.nameZh}</span>
+          </h1>
+
+          <div className="hero-affiliation">
+            <p>{profile.currentRoleEn}</p>
+            <p>{profile.departmentEn}</p>
+            <p>{profile.universityEn}</p>
+            <p className="hero-degree">
+              Expected {profile.degreeEn.replace(" Candidate", "")} {expectedYear} ·{" "}
+              {profile.locationEn}
             </p>
-            <p className="mt-4 text-[0.94rem] leading-7 text-[var(--muted)]">
-              {profile.focusKeywords.join(" · ")}
-            </p>
-            <div className="mt-6">
-              <SocialLinks />
-            </div>
           </div>
-          {profile.photoVisible ? (
-            <div className="reveal reveal-delay mx-auto w-full max-w-[15rem] sm:max-w-[16rem]">
-              <ProfilePhoto locale={locale} />
-            </div>
-          ) : null}
+
+          <h2 className="research-identity">{profile.researchIdentityEn}</h2>
+
+          <div className="research-statement">
+            {profile.researchStatementEn.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+
+          <p className="research-keywords">{profile.focusKeywords.join(" · ")}</p>
+          <AcademicLinks />
         </div>
+
+        <ProfilePhoto />
       </div>
     </section>
   );

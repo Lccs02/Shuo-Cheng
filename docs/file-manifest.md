@@ -23,9 +23,15 @@ components/common/Analytics.tsx
 components/common/BackToTop.tsx
 components/common/DocumentLanguage.tsx
 components/common/ImageWithFallback.tsx
-components/common/MotionOrchestrator.tsx
 components/common/Primitives.tsx
+components/home/Awards.tsx
+components/home/Education.tsx
 components/home/Hero.tsx
+components/home/News.tsx
+components/home/PublicationList.tsx
+components/home/ResearchExperience.tsx
+components/home/ResearchJourney.tsx
+components/home/ResearchProjectList.tsx
 components/home/ResearchVisual.tsx
 components/layout/Footer.tsx
 components/layout/Header.tsx
@@ -47,7 +53,6 @@ content/publications.json
 content/research.json
 content/research-experiences.json
 content/news.json
-content/research-interests.json
 content/site.en.json
 content/site.zh.json
 public/images/research/satellite-rl-visual.webp

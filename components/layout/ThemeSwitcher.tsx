@@ -48,7 +48,7 @@ export function ThemeSwitcher({ locale }: { locale: Locale }) {
       suppressHydrationWarning
       type="button"
       onClick={toggle}
-      className="grid size-10 place-items-center rounded-full"
+      className="theme-button"
       aria-label={label}
       title={label}
     >

@@ -3,30 +3,38 @@ import { ExternalLink } from "@/components/common/Primitives";
 import type { Competition, Locale, Project } from "@/types/content";
 
 export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
+  const contributions = locale === "zh" ? project.contributionZh : project.contributionEn;
   return (
-    <article className={project.cover ? "project-row" : "border-t border-[var(--line)] py-5"}>
+    <article className={project.cover ? "project-entry with-cover" : "project-entry"}>
       {project.cover && (
-        <div className="relative aspect-[16/10] overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+        <div className="project-cover">
           <ImageWithFallback
             src={project.cover}
             alt={locale === "zh" ? `${project.titleZh}封面` : `${project.titleEn} cover`}
             sizes="(max-width: 720px) 100vw, 220px"
-            className="transition duration-500 ease-out hover:scale-[1.02]"
+            className="project-cover-image"
           />
         </div>
       )}
       <div>
-        <h3 className="academic-item-title">
-          {locale === "zh" ? project.titleZh : project.titleEn}
-        </h3>
+        <div className="project-heading">
+          <h3>{locale === "zh" ? project.titleZh : project.titleEn}</h3>
+          {project.githubUrl && <ExternalLink href={project.githubUrl}>GitHub</ExternalLink>}
+        </div>
         <p className="mt-2 leading-7 text-[var(--muted)]">
           {locale === "zh" ? project.summaryZh : project.summaryEn}
         </p>
+        {contributions.length > 0 && (
+          <ul className="project-contributions">
+            {contributions.map((contribution) => (
+              <li key={contribution}>{contribution}</li>
+            ))}
+          </ul>
+        )}
         {project.tags.length > 0 && (
           <p className="mt-2 text-sm text-[var(--muted)]">{project.tags.join(" · ")}</p>
         )}
         <div className="academic-links mt-3">
-          {project.githubUrl && <ExternalLink href={project.githubUrl}>GitHub</ExternalLink>}
           {project.docsUrl && <ExternalLink href={project.docsUrl}>Documentation</ExternalLink>}
           {project.paperUrl && <ExternalLink href={project.paperUrl}>Paper</ExternalLink>}
           {project.demoUrl && <ExternalLink href={project.demoUrl}>Demo</ExternalLink>}

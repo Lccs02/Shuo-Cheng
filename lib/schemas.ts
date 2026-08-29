@@ -2,30 +2,30 @@ import { z } from "zod";
 
 const url = z.string().url();
 const optionalUrl = url.optional();
-const bilingual = {
-  nameZh: z.string().min(1),
-  nameEn: z.string().min(1),
-};
 
 export const profileSchema = z.object({
   nameZh: z.string().min(1),
   nameEn: z.string().min(1),
   universityZh: z.string().min(1),
   universityEn: z.string().min(1),
-  schoolZh: z.string().min(1),
-  schoolEn: z.string().min(1),
+  departmentZh: z.string().min(1),
+  departmentEn: z.string().min(1),
   majorZh: z.string().min(1),
   majorEn: z.string().min(1),
   degreeZh: z.string().min(1),
   degreeEn: z.string().min(1),
-  roleZh: z.string().min(1),
-  roleEn: z.string().min(1),
+  currentRoleZh: z.string().min(1),
+  currentRoleEn: z.string().min(1),
   period: z.string().min(1),
   locationZh: z.string().min(1),
   locationEn: z.string().min(1),
   bioZh: z.string().min(1),
   bioEn: z.string().min(1),
   bioEditable: z.boolean(),
+  researchIdentityZh: z.string().min(1),
+  researchIdentityEn: z.string().min(1),
+  researchStatementZh: z.array(z.string().min(1)).min(1),
+  researchStatementEn: z.array(z.string().min(1)).min(1),
   focusKeywords: z.array(z.string().min(1)),
   photo: z.string().startsWith("/").optional(),
   photoAltZh: z.string().min(1),
@@ -72,27 +72,20 @@ export const educationSchema = z.array(
 export const researchTopicsSchema = z.array(
   z.object({
     id: z.string().min(1),
+    phase: z.enum(["understanding", "representation", "decision"]),
+    phaseLabelZh: z.string().min(1),
+    phaseLabelEn: z.string().min(1),
     titleZh: z.string().min(1),
     titleEn: z.string().min(1),
+    subtitleZh: z.string().min(1),
+    subtitleEn: z.string().min(1),
     descriptionZh: z.string().min(1),
     descriptionEn: z.string().min(1),
     keywords: z.array(z.string().min(1)),
-    stage: z.enum(["active", "current_interest"]),
     paperUrl: optionalUrl,
     codeUrl: optionalUrl,
     projectUrl: optionalUrl,
     visible: z.boolean(),
-  }),
-);
-
-export const researchInterestsSchema = z.array(
-  z.object({
-    id: z.string().min(1),
-    ...bilingual,
-    descriptionZh: z.string().min(1),
-    descriptionEn: z.string().min(1),
-    keywords: z.array(z.string()),
-    icon: z.string().optional(),
   }),
 );
 
@@ -274,8 +267,7 @@ export const publicContactSchema = z.object({
 export const siteSchema = z.object({
   siteTitle: z.string().min(1),
   siteDescription: z.string().min(1),
-  homeEyebrow: z.string().min(1),
-  researchStatement: z.string().min(1),
+  researchJourneyIntro: z.string().min(1),
   futurePlans: z.array(z.string().min(1)),
   furtherQuestions: z.array(z.string().min(1)),
   analyticsProvider: z.enum(["none", "google", "umami"]),
@@ -305,7 +297,6 @@ export const schemas = {
   "profile.json": profileSchema,
   "navigation.json": navigationSchema,
   "education.json": educationSchema,
-  "research-interests.json": researchInterestsSchema,
   "research.json": researchTopicsSchema,
   "publications.json": publicationsSchema,
   "research-experiences.json": researchExperiencesSchema,

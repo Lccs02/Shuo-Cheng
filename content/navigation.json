@@ -2,8 +2,5 @@
   { "path": "research", "zh": "研究", "en": "Research" },
   { "path": "publications", "zh": "论文", "en": "Publications" },
   { "path": "experience", "zh": "科研经历", "en": "Experience" },
-  { "path": "projects", "zh": "项目", "en": "Projects" },
-  { "path": "awards", "zh": "荣誉", "en": "Awards" },
-  { "path": "education", "zh": "教育", "en": "Education" },
-  { "path": "contact", "zh": "联系", "en": "Contact" }
+  { "path": "projects", "zh": "科研项目", "en": "Projects" }
 ]

@@ -14,6 +14,7 @@ import {
 } from "@/components/common/Primitives";
 import { CompetitionCard, ProjectCard } from "@/components/projects/ProjectComponents";
 import { PublicationCard, ResearchTopicList } from "@/components/research/ResearchComponents";
+import { ResearchVisual } from "@/components/home/ResearchVisual";
 import {
   awards,
   competitions,
@@ -114,9 +115,17 @@ function Research({ locale }: { locale: Locale }) {
       <section className="section-grid">
         <SectionHeading
           title={locale === "zh" ? "研究兴趣" : "Research Interests"}
-          description={sites[locale].researchStatement}
+          description={
+            locale === "zh" ? profile.researchStatementZh[0] : profile.researchStatementEn[0]
+          }
         />
-        <ResearchTopicList topics={researchTopics.filter((item) => item.visible)} locale={locale} />
+        <div>
+          <ResearchTopicList
+            topics={researchTopics.filter((item) => item.visible)}
+            locale={locale}
+          />
+          <ResearchVisual locale={locale} />
+        </div>
       </section>
       {visible.length > 0 && (
         <section className="section section-grid">

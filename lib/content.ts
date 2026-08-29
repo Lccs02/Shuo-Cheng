@@ -7,7 +7,6 @@ import navigationJson from "@/content/navigation.json";
 import profileJson from "@/content/profile.json";
 import projectsJson from "@/content/projects.json";
 import publicationsJson from "@/content/publications.json";
-import interestsJson from "@/content/research-interests.json";
 import researchJson from "@/content/research.json";
 import researchExperiencesJson from "@/content/research-experiences.json";
 import newsJson from "@/content/news.json";
@@ -26,7 +25,6 @@ import {
   projectsSchema,
   publicationsSchema,
   publicContactSchema,
-  researchInterestsSchema,
   researchTopicsSchema,
   researchExperiencesSchema,
   newsSchema,
@@ -39,7 +37,6 @@ import { withBasePath } from "@/lib/paths";
 export const profile = profileSchema.parse(profileJson);
 export const navigation = navigationSchema.parse(navigationJson);
 export const education = educationSchema.parse(educationJson);
-export const interests = researchInterestsSchema.parse(interestsJson);
 export const researchTopics = researchTopicsSchema.parse(researchJson);
 export const publications = publicationsSchema.parse(publicationsJson);
 export const researchExperiences = researchExperiencesSchema.parse(researchExperiencesJson);
@@ -64,20 +61,6 @@ export function hrefFor(locale: Locale, path = "") {
   const suffix = path ? `/${path}` : "";
   const href = locale === "en" ? `/en${suffix}/` : path ? `${suffix}/` : "/";
   return withBasePath(href);
-}
-
-export function getVisibleStats() {
-  const visiblePublications = publications.filter((item) => item.visible);
-  const published = visiblePublications.filter((item) =>
-    ["published", "accepted"].includes(item.status),
-  ).length;
-  const underReview = visiblePublications.filter((item) => item.status === "under_review").length;
-  const national = awards.filter((item) => item.level === "national").length;
-  const provincial = awards.filter((item) => item.level === "provincial").length;
-  const selectedProjects =
-    projects.filter((item) => item.visible && item.selected).length +
-    githubCache.repositories.length;
-  return { published, underReview, national, provincial, selectedProjects };
 }
 
 export function getGithubProjects() {

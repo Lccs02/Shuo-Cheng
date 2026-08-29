@@ -1,39 +1,28 @@
-"use client";
+import { profile } from "@/lib/content";
 
-import { usePathname } from "next/navigation";
-import { hrefFor, profile } from "@/lib/content";
+const updated = new Intl.DateTimeFormat("en", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(new Date(`${profile.lastUpdated}T00:00:00Z`));
 
 export function Footer() {
-  const pathname = usePathname();
-  const en = pathname.startsWith("/en");
   return (
-    <footer className="border-t border-[var(--line)] py-9 text-sm text-[var(--muted)]">
-      <div className="shell flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
-        <p>
-          © {new Date().getFullYear()} {en ? profile.nameEn : profile.nameZh} ·{" "}
-          {en ? "Last updated" : "最后更新"} {profile.lastUpdated}
-        </p>
-        <div className="flex flex-wrap gap-5">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-underline"
-          >
+    <footer className="site-footer">
+      <div className="academic-shell footer-inner">
+        <p>© {new Date().getFullYear()} Shuo Cheng</p>
+        <nav aria-label="Footer links">
+          <a href={`mailto:${profile.schoolEmail}`}>Email</a>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
-          <a
-            href={`https://orcid.org/${profile.orcid}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-underline"
-          >
-            ORCID
-          </a>
-          <a href={hrefFor(en ? "en" : "zh", "privacy")} className="link-underline">
-            {en ? "Privacy" : "隐私说明"}
-          </a>
-        </div>
+          {profile.scholarUrl && (
+            <a href={profile.scholarUrl} target="_blank" rel="noopener noreferrer">
+              Scholar
+            </a>
+          )}
+        </nav>
+        <p>Last updated: {updated}</p>
       </div>
     </footer>
   );

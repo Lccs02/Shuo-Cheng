@@ -1,7 +1,7 @@
 # 程硕个人学术主页
 
-面向国内保研、夏令营、预推免和导师联系的长期可维护双语学术主页。网站强调科研兴趣、
-论文研究能力、竞赛成果和工程实践，不使用夸张的自我宣传，也不公开私人简历和默认隐藏的联系方式。
+面向保研、夏令营、预推免和导师联系的长期可维护学术主页。根路径采用英文优先的学术简历式首页，
+独立内容页保留中英文资料。网站强调清晰的研究主线与可核验成果，不使用夸张宣传，也不公开私人简历和默认隐藏的联系方式。
 
 当前仓库部署地址：<https://lccs02.github.io/Shuo-Cheng/>。构建会在 GitHub Actions 中自动识别项目仓库路径；本地开发仍使用根路径 `/`。
 
@@ -80,7 +80,7 @@ npm.cmd run build
 - `site.zh.json` / `site.en.json`：页面说明、研究计划、统计和搜索索引设置
 - `navigation.json`：双语导航
 - `education.json`、`experiences.json`：教育和交流经历
-- `research.json`：首页的 2～3 条科研主线、阶段和相关链接
+- `research.json`：首页 Understanding → Representation → Decision 三阶段研究主线
 - `research-experiences.json`：实验室、导师、研究主题和科研产出（没有公开数据时使用空数组）
 - `publications.json`、`projects.json`：论文和科研项目
 - `news.json`：按日期维护的科研动态
@@ -110,10 +110,10 @@ public/images/profile.jpg
 项目、竞赛和奖项封面建议使用 16:10，至少 1600 × 1000 像素；可使用 JPG、WebP 或 AVIF。
 图片路径从 `/images/...` 开始。组件为所有图片保留固定比例，并在加载失败时显示本地 fallback，避免布局跳动。
 
-首页“研究方向”模块中的研究概念图由 `content/profile.json` 中的 `researchVisual`、中英文替代文本和
+独立 `/research` 页面中的研究概念图由 `content/profile.json` 中的 `researchVisual`、中英文替代文本和
 `researchVisualVisible` 控制。默认素材位于
 `public/images/research/satellite-rl-visual.webp`；替换时应避免图片包含未经核实的论文、奖项或机构名称。
-如果图片人物并非本人，应在图注中明确标注为概念插画，避免被访问者误认为个人照片。
+该图不会作为首页头像；如果图片人物并非本人，图注必须明确标注为概念插画，避免被访问者误认为个人照片。
 
 ## 新增论文
 
@@ -238,9 +238,10 @@ none | google | umami
 - `--ink`：正文
 - `--muted`：次要文字
 - `--line`：边框
-- `--accent`：暗红强调
+- `--accent`：唯一的深蓝强调色
 
-保持暗红只用于链接、状态和反馈，并检查两种主题的对比度。
+保持单一强调色只用于链接、当前状态和必要反馈；不要加入渐变、厚重阴影或多套互相竞争的主题色，
+并检查浅色与深色主题的对比度。
 
 ## 创建仓库并推送
 

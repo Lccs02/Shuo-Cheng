@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import {
   awards,
   competitions,
-  getVisibleStats,
   profile,
   projects,
   publications,
@@ -23,20 +22,19 @@ describe("content integrity", () => {
     expect(projects.filter((item) => item.visible)).toHaveLength(0);
   });
 
-  it("calculates achievement statistics from content", () => {
-    const stats = getVisibleStats();
-    expect(stats.national).toBe(2);
-    expect(stats.provincial).toBe(2);
-    expect(stats.published).toBe(0);
-  });
-
-  it("defines three visible research directions", () => {
+  it("defines a three-stage research journey", () => {
     expect(researchTopics.filter((item) => item.visible)).toHaveLength(3);
+    expect(researchTopics.map((item) => item.phase)).toEqual([
+      "understanding",
+      "representation",
+      "decision",
+    ]);
     expect(researchTopics.every((item) => item.keywords.length >= 3)).toBe(true);
   });
 
   it("contains only verified public contact basics", () => {
     expect(profile.schoolEmail).toBe("24270230@hdu.edu.cn");
+    expect(profile.researchIdentityEn).toBe("Learning for Dynamic Networked Systems");
     expect(JSON.stringify({ awards, competitions, profile })).not.toContain(
       "private-person@example.invalid",
     );
