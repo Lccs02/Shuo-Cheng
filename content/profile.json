@@ -20,12 +20,12 @@
   "researchIdentityZh": "面向动态网络系统的学习方法",
   "researchIdentityEn": "Learning for Dynamic Networked Systems",
   "researchStatementZh": [
-    "我关注动态网络系统中的学习建模与决策问题，尤其是卫星网络。",
-    "当前研究路线从网络动态建模出发，经由结构化表征学习，逐步走向强化学习与世界模型驱动的智能序列决策。"
+    "我关注动态网络系统中的学习驱动建模与决策问题，当前主要以卫星网络为研究场景。",
+    "研究主线连接网络流量动态、多粒度时空表征与基于强化学习的资源管理。"
   ],
   "researchStatementEn": [
-    "I am an undergraduate researcher interested in learning-based modeling and decision-making for dynamic networked systems, particularly satellite networks.",
-    "My work follows a path from modeling network dynamics, through structured representation learning, toward intelligent sequential decision-making using reinforcement learning and world models."
+    "I study learning-based modeling and decision-making for dynamic networked systems, with satellite networks as the primary setting.",
+    "My research connects traffic dynamics, multi-granularity spatio-temporal representation, and reinforcement-learning-based resource management."
   ],
   "focusKeywords": [
     "Satellite Networks",
@@ -33,9 +33,10 @@
     "Reinforcement Learning",
     "Spatio-temporal Learning"
   ],
+  "photo": "/images/profile-shuo-cheng.jpg",
   "photoAltZh": "程硕的个人照片",
   "photoAltEn": "Portrait of Shuo Cheng",
-  "photoVisible": false,
+  "photoVisible": true,
   "researchVisual": "/images/research/satellite-rl-visual.webp",
   "researchVisualAltZh": "融合低轨卫星网络、网络拓扑与强化学习状态决策过程的研究主题插画",
   "researchVisualAltEn": "Research illustration combining LEO satellite networks, network topology, and reinforcement-learning decision processes",
@@ -43,5 +44,5 @@
   "github": "https://github.com/Lccs02",
   "orcid": "0009-0009-9676-6425",
   "schoolEmail": "24270230@hdu.edu.cn",
-  "lastUpdated": "2026-08-29"
+  "lastUpdated": "2026-08-30"
 }

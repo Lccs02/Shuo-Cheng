@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": "bwtac26-document-leakage-tracing",
+    "title": "Authorization-Instance-Driven Tracing of Screen-Shooting Document Leakage with SACW and Blockchain Verification",
+    "authors": [
+      "Shuo Cheng",
+      "Haolong Yang",
+      "Haimin Weng",
+      "Yuxin Zhang",
+      "Fuxiang Cen",
+      "Qiuyun Lyu"
+    ],
+    "firstAuthor": true,
+    "venue": "BWTAC'26",
+    "year": 2026,
+    "status": "accepted",
+    "thumbnail": "/images/publications/bwtac26-framework.png",
+    "descriptionZh": "面向屏摄文档泄露溯源，结合授权实例关联、语义感知水印恢复与区块链验证。",
+    "descriptionEn": "A document-leakage tracing framework combining authorization-instance association, semantic-aware watermark recovery, and blockchain verification.",
+    "tags": ["Document Leakage Tracing", "Watermarking", "Blockchain Verification"],
+    "selected": true,
+    "visible": true
+  }
+]

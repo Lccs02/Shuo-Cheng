@@ -7,10 +7,12 @@ export function ResearchExperience({ items }: { items: ResearchExperienceItem[] 
   return (
     <section
       id="experience"
-      className="home-section academic-shell"
+      className="home-section home-section-grid academic-shell"
       aria-labelledby="experience-title"
+      data-motion
     >
       <header className="home-section-header">
+        <p className="eyebrow">Academic path</p>
         <h2 id="experience-title">Research Experience</h2>
       </header>
       <ResearchExperienceList items={items} locale="en" />

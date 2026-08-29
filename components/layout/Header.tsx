@@ -7,6 +7,7 @@ import {
   getGithubProjects,
   hrefFor,
   navigation,
+  news,
   profile,
   projects,
   publications,
@@ -33,6 +34,7 @@ const visibleSections = new Set([
   ...(projects.some((item) => item.visible && item.selected) || getGithubProjects().length
     ? ["projects"]
     : []),
+  ...(news.some((item) => item.visible) ? ["news"] : []),
 ]);
 
 const visibleNavigation = navigation.filter((item) => visibleSections.has(item.path));
@@ -101,7 +103,8 @@ export function Header() {
     <header className="site-header">
       <div className="site-header-inner">
         <a href={hrefFor(locale)} className="site-name" aria-label="Shuo Cheng home">
-          {profile.nameEn}
+          <span>{profile.nameEn}</span>
+          <small>Academic Homepage</small>
         </a>
         <div className="header-actions">
           <DesktopNavigation locale={locale} />

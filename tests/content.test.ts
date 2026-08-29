@@ -11,10 +11,19 @@ import {
 } from "@/lib/content";
 
 describe("content integrity", () => {
-  it("does not expose incomplete academic records", () => {
-    expect(publications).toHaveLength(0);
+  it("publishes only verified academic records", () => {
+    expect(publications).toHaveLength(1);
+    expect(publications[0]).toMatchObject({
+      venue: "BWTAC'26",
+      year: 2026,
+      status: "accepted",
+      firstAuthor: true,
+      visible: true,
+    });
     expect(researchExperiences).toHaveLength(0);
-    expect(news).toHaveLength(0);
+    expect(news).toHaveLength(2);
+    expect(news[0]?.date).toBe("2026-08-26");
+    expect(news[0]?.image).toContain("bwtac26-acceptance-email.png");
     expect(JSON.stringify({ publications, researchExperiences, news })).not.toMatch(/TODO/i);
   });
 
@@ -34,6 +43,8 @@ describe("content integrity", () => {
 
   it("contains only verified public contact basics", () => {
     expect(profile.schoolEmail).toBe("24270230@hdu.edu.cn");
+    expect(profile.photoVisible).toBe(true);
+    expect(profile.photo).toBe("/images/profile-shuo-cheng.jpg");
     expect(profile.researchIdentityEn).toBe("Learning for Dynamic Networked Systems");
     expect(JSON.stringify({ awards, competitions, profile })).not.toContain(
       "private-person@example.invalid",

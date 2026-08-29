@@ -22,16 +22,24 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.getByText("Representation", { exact: true })).toBeVisible();
   await expect(page.getByText("Decision", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Satellite Traffic Modeling" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Selected Publications" })).toBeVisible();
+  await expect(page.locator("#publications").getByText("BWTAC'26", { exact: false })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Selected Awards & Honors" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Education" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "News" })).toBeVisible();
+  await expect(page.locator(".orbital-research-field")).toBeVisible();
+  await expect(page.getByRole("img", { name: "Portrait of Shuo Cheng" })).toBeVisible();
+  await expect(
+    page.getByRole("img", { name: "Screenshot of the BWTAC'26 paper acceptance email" }),
+  ).toBeVisible();
 });
 
 test("empty academic sections and internal placeholders stay hidden", async ({ page }) => {
   await page.goto(sitePath("/"));
-  await expect(page.getByRole("heading", { name: "Selected Publications" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Selected Publications" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Research Experience" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Selected Research Projects" })).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "News" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "News" })).toBeVisible();
   await expect(page.locator("body")).not.toContainText(
     /TODO|Coming Soon|正在整理|占位|论文即将更新|No data/i,
   );

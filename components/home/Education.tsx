@@ -6,10 +6,12 @@ export function Education({ items }: { items: EducationItem[] }) {
   return (
     <section
       id="education"
-      className="home-section home-section-secondary academic-shell"
+      className="home-section home-section-grid home-section-secondary academic-shell"
       aria-labelledby="education-title"
+      data-motion
     >
       <header className="home-section-header compact">
+        <p className="eyebrow">Academic background</p>
         <h2 id="education-title">Education</h2>
       </header>
       <div className="education-list">

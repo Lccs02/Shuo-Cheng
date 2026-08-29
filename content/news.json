@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "id": "bwtac26-paper-accepted",
+    "date": "2026-08-26",
+    "contentZh": "第一作者论文被 BWTAC'26 录用。",
+    "contentEn": "Our paper was accepted by BWTAC'26, with Shuo Cheng as the first author.",
+    "type": "publication",
+    "image": "/images/publications/bwtac26-acceptance-email.png",
+    "imageAltZh": "BWTAC'26 论文录用邮件截图",
+    "imageAltEn": "Screenshot of the BWTAC'26 paper acceptance email",
+    "visible": true
+  },
+  {
+    "id": "pknu-summer-exchange",
+    "date": "2025-08",
+    "contentZh": "参加 Pukyong National University 暑期交流项目。",
+    "contentEn": "Participated in a summer exchange program at Pukyong National University.",
+    "type": "education",
+    "visible": true
+  }
+]

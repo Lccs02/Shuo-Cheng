@@ -148,6 +148,9 @@ export const newsSchema = z.array(
     contentEn: z.string().min(1),
     type: z.enum(["publication", "research", "award", "education", "other"]),
     link: optionalUrl,
+    image: z.string().optional(),
+    imageAltZh: z.string().optional(),
+    imageAltEn: z.string().optional(),
     visible: z.boolean(),
   }),
 );

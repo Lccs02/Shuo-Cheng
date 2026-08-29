@@ -6,10 +6,12 @@ export function Awards({ awards }: { awards: Award[] }) {
   return (
     <section
       id="awards"
-      className="home-section home-section-secondary academic-shell"
+      className="home-section home-section-grid home-section-secondary academic-shell"
       aria-labelledby="awards-title"
+      data-motion
     >
       <header className="home-section-header compact">
+        <p className="eyebrow">Selected recognition</p>
         <h2 id="awards-title">Selected Awards &amp; Honors</h2>
       </header>
       <div className="award-list">

@@ -23,11 +23,13 @@ components/common/Analytics.tsx
 components/common/BackToTop.tsx
 components/common/DocumentLanguage.tsx
 components/common/ImageWithFallback.tsx
+components/common/MotionOrchestrator.tsx
 components/common/Primitives.tsx
 components/home/Awards.tsx
 components/home/Education.tsx
 components/home/Hero.tsx
 components/home/News.tsx
+components/home/OrbitalResearchField.tsx
 components/home/PublicationList.tsx
 components/home/ResearchExperience.tsx
 components/home/ResearchJourney.tsx
@@ -80,6 +82,9 @@ public/images/awards/.gitkeep
 public/images/competitions/.gitkeep
 public/images/education/.gitkeep
 public/images/profile-placeholder.jpg
+public/images/profile-shuo-cheng.jpg
+public/images/publications/bwtac26-acceptance-email.png
+public/images/publications/bwtac26-framework.png
 public/images/projects/.gitkeep
 public/robots.txt
 scripts/check-links.mjs

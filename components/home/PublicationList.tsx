@@ -7,10 +7,12 @@ export function PublicationList({ publications }: { publications: Publication[] 
   return (
     <section
       id="publications"
-      className="home-section academic-shell"
+      className="home-section home-section-grid academic-shell"
       aria-labelledby="publications-title"
+      data-motion
     >
       <header className="home-section-header">
+        <p className="eyebrow">Research output</p>
         <h2 id="publications-title">Selected Publications</h2>
       </header>
       <div className="publication-list">

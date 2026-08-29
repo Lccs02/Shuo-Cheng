@@ -8,8 +8,8 @@
     "titleEn": "Satellite Traffic Modeling",
     "subtitleZh": "理解动态网络行为",
     "subtitleEn": "Understanding dynamic network behavior",
-    "descriptionZh": "对卫星网络中的异构多业务流量动态进行建模，并研究其时间与空间演化。",
-    "descriptionEn": "Modeling heterogeneous multi-service traffic dynamics in satellite networks and studying their temporal and spatial evolution.",
+    "descriptionZh": "建模卫星网络中的异构流量，以刻画其时空动态。",
+    "descriptionEn": "Modeling heterogeneous traffic in satellite networks to characterize temporal and spatial dynamics.",
     "keywords": ["Satellite Networks", "Traffic Forecasting", "Network Dynamics"],
     "visible": true
   },
@@ -22,8 +22,8 @@
     "titleEn": "Multi-granularity Spatio-temporal Learning",
     "subtitleZh": "跨多种尺度学习结构化表征",
     "subtitleEn": "Learning structured representations across multiple scales",
-    "descriptionZh": "探索可泛化的时空表征，以捕捉不同时间和空间分辨率下的异构动态。",
-    "descriptionEn": "Exploring generalizable spatio-temporal representations that capture heterogeneous dynamics across temporal and spatial resolutions.",
+    "descriptionZh": "学习能够跨时间与空间尺度泛化的多粒度表征。",
+    "descriptionEn": "Learning multi-granularity representations that generalize across temporal and spatial scales.",
     "keywords": ["Spatio-temporal Learning", "Multi-scale Modeling", "Representation Learning"],
     "visible": true
   },
@@ -36,8 +36,8 @@
     "titleEn": "Learning-based Network Resource Management",
     "subtitleZh": "从预测走向序列决策",
     "subtitleEn": "From prediction to sequential decision-making",
-    "descriptionZh": "探索强化学习、基于模型的强化学习和世界模型在高度动态网络环境自适应资源管理中的应用。",
-    "descriptionEn": "Exploring reinforcement learning, model-based reinforcement learning, and world models for adaptive resource management in highly dynamic network environments.",
+    "descriptionZh": "利用强化学习与世界模型，在变化的网络条件下进行自适应资源管理。",
+    "descriptionEn": "Using reinforcement learning and world models for adaptive resource management under changing network conditions.",
     "keywords": ["Reinforcement Learning", "World Models", "Resource Management"],
     "visible": true
   }

@@ -44,6 +44,8 @@ yarn-error.log*
 /test-results/
 /.playwright-cli/
 /output/
+/tmp/
+/材料/
 
 # content studio temporary files
 /tools/content-studio/.tmp/

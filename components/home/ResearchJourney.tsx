@@ -10,8 +10,14 @@ export function ResearchJourney({
   if (!topics.length) return null;
 
   return (
-    <section id="research" className="home-section academic-shell" aria-labelledby="research-title">
+    <section
+      id="research"
+      className="home-section home-section-grid academic-shell"
+      aria-labelledby="research-title"
+      data-motion
+    >
       <header className="home-section-header">
+        <p className="eyebrow">Research trajectory</p>
         <h2 id="research-title">Research</h2>
         <p>{introduction}</p>
       </header>

@@ -75,6 +75,9 @@ export type NewsItem = {
   contentEn: string;
   type: "publication" | "research" | "award" | "education" | "other";
   link?: string;
+  image?: string;
+  imageAltZh?: string;
+  imageAltEn?: string;
   visible: boolean;
 };
 

@@ -2,6 +2,7 @@ import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { ExternalLink } from "@/components/common/Primitives";
 import { profile } from "@/lib/content";
 import { withBasePath } from "@/lib/paths";
+import { OrbitalResearchField } from "./OrbitalResearchField";
 
 export function ProfilePhoto() {
   if (!profile.photoVisible || !profile.photo) return null;
@@ -35,9 +36,12 @@ export function Hero() {
   const expectedYear = profile.period.split("—")[1];
 
   return (
-    <section className="home-hero academic-shell" aria-labelledby="home-title">
-      <div className={profile.photoVisible && profile.photo ? "hero-layout" : "hero-copy-only"}>
-        <div>
+    <section className="hero-stage" aria-labelledby="home-title">
+      <OrbitalResearchField />
+      <div className="hero-atmosphere" aria-hidden="true" />
+      <div className="hero-inner academic-shell">
+        <div className="hero-copy reveal">
+          <p className="hero-eyebrow">Undergraduate Research Portfolio</p>
           <h1 id="home-title" className="hero-name">
             {profile.nameEn}
             <span lang="zh-CN">{profile.nameZh}</span>
@@ -65,7 +69,17 @@ export function Hero() {
           <AcademicLinks />
         </div>
 
-        <ProfilePhoto />
+        {profile.photoVisible && profile.photo ? (
+          <div className="hero-portrait reveal reveal-delay">
+            <ProfilePhoto />
+          </div>
+        ) : (
+          <div className="hero-signal-caption" aria-label="Research process summary">
+            <span>Dynamic networked systems</span>
+            <strong>Model · Represent · Decide</strong>
+            <small>Satellite networks / Multi-agent learning</small>
+          </div>
+        )}
       </div>
     </section>
   );

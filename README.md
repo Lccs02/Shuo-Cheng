@@ -110,6 +110,9 @@ public/images/profile.jpg
 项目、竞赛和奖项封面建议使用 16:10，至少 1600 × 1000 像素；可使用 JPG、WebP 或 AVIF。
 图片路径从 `/images/...` 开始。组件为所有图片保留固定比例，并在加载失败时显示本地 fallback，避免布局跳动。
 
+论文框架图建议放入 `public/images/publications/` 并通过 `thumbnail` 引用。News 条目可以通过可选的
+`image`、`imageAltZh` 与 `imageAltEn` 字段展示录用邮件等可公开证据；加入前应检查邮件地址、编号和其他个人信息。
+
 独立 `/research` 页面中的研究概念图由 `content/profile.json` 中的 `researchVisual`、中英文替代文本和
 `researchVisualVisible` 控制。默认素材位于
 `public/images/research/satellite-rl-visual.webp`；替换时应避免图片包含未经核实的论文、奖项或机构名称。
@@ -238,10 +241,12 @@ none | google | umami
 - `--ink`：正文
 - `--muted`：次要文字
 - `--line`：边框
-- `--accent`：唯一的深蓝强调色
+- `--accent`：克制的暗红重点色
+- `--signal`：卫星网络与多智能体节点的青绿色信号色
+- `--signal-alt`：少量数据流辅助色
 
-保持单一强调色只用于链接、当前状态和必要反馈；不要加入渐变、厚重阴影或多套互相竞争的主题色，
-并检查浅色与深色主题的对比度。
+配色沿用 2026 年 8 月 9 日版的矿物纸张基调。暗红用于学术定位与链接，青绿色用于轨道网络动效，
+辅助色不参与普通正文层级；修改后需同时检查浅色和深色主题对比度。
 
 ## 创建仓库并推送
 
