@@ -11,7 +11,8 @@
     "programEn": "Cyberspace Security · B.Eng. Candidate",
     "locationZh": "杭州",
     "locationEn": "Hangzhou",
-    "type": "education"
+    "type": "education",
+    "visible": true
   },
   {
     "id": "pknu-summer",
@@ -21,10 +22,11 @@
     "periodEn": "August 2025",
     "schoolZh": "暑期交流项目",
     "schoolEn": "Summer Exchange Program",
-    "programZh": "TODO：补充具体项目名称",
-    "programEn": "TODO: Add the official program name",
+    "programZh": "访问学习经历",
+    "programEn": "Visiting Study Experience",
     "locationZh": "韩国",
     "locationEn": "Republic of Korea",
-    "type": "exchange"
+    "type": "exchange",
+    "visible": true
   }
 ]

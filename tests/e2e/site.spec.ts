@@ -11,10 +11,14 @@ const sitePath = (path: string) => `${projectBasePath}${path}`;
 
 test("Chinese home renders its academic hierarchy", async ({ page }) => {
   await page.goto(sitePath("/"));
-  await expect(page).toHaveTitle(/程硕/);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("程硕");
-  await expect(page.getByText("精选科研成果")).toBeVisible();
-  await expect(page.getByText("论文信息将在公开后更新。")).toBeVisible();
+  await expect(page).toHaveTitle(/Shuo Cheng \| Academic Homepage/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Shuo Cheng");
+  await expect(page.getByRole("heading", { name: "研究方向" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "精选荣誉与奖项" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "教育背景" })).toBeVisible();
+  await expect(page.getByRole("img", { name: /低轨卫星网络、网络拓扑与强化学习/ })).toBeVisible();
+  await expect(page.getByText("AI 生成的研究概念图（非本人肖像）")).toBeVisible();
+  await expect(page.locator("body")).not.toContainText(/TODO|Coming Soon|正在整理|占位/);
 });
 
 test("language switch keeps the current page", async ({ page }) => {
@@ -51,44 +55,27 @@ test("theme choice persists", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("orbital multi-agent field initializes", async ({ page }) => {
+test("academic navigation scrolls to visible sections", async ({ page, isMobile }) => {
   await page.goto(sitePath("/"));
-  const field = page.getByTestId("orbital-agent-field");
-  await expect(field).toBeVisible();
-  await expect
-    .poll(() => field.evaluate((element: HTMLCanvasElement) => element.width))
-    .toBeGreaterThan(300);
+  if (isMobile) await page.getByRole("button", { name: "打开菜单" }).click();
+  await page.getByRole("link", { name: "研究", exact: true }).click();
+  await expect(page).toHaveURL(/#research$/);
+  await expect(page.locator("#research")).toBeInViewport();
 });
 
-test("orbital field stays still when reduced motion is requested", async ({ page }) => {
+test("reduced motion removes nonessential section animation", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(sitePath("/"));
-  const field = page.getByTestId("orbital-agent-field");
-  await expect
-    .poll(() => field.evaluate((element: HTMLCanvasElement) => element.width))
-    .toBeGreaterThan(300);
-  const firstFrame = await field.evaluate((element: HTMLCanvasElement) => element.toDataURL());
-  await page.waitForTimeout(120);
-  const secondFrame = await field.evaluate((element: HTMLCanvasElement) => element.toDataURL());
-  expect(secondFrame).toBe(firstFrame);
+  await expect(page.locator("html")).not.toHaveClass(/motion-enabled/);
+  await expect(page.locator("#research")).toBeVisible();
 });
 
-test("native scrolling drives depth and section reveals", async ({ page }) => {
+test("sections reveal without blur or scroll-linked depth", async ({ page }) => {
   await page.goto(sitePath("/"));
-  await page.evaluate(() => window.scrollTo({ top: window.innerHeight * 0.65 }));
-  await expect
-    .poll(() =>
-      page
-        .locator("html")
-        .evaluate((element) =>
-          Number.parseFloat(getComputedStyle(element).getPropertyValue("--hero-copy-y")),
-        ),
-    )
-    .toBeLessThan(-0.5);
-
   const firstSection = page.locator("[data-motion]").first();
   await firstSection.scrollIntoViewIfNeeded();
   await expect(firstSection).toHaveClass(/is-visible/);
+  await expect(firstSection).toHaveCSS("filter", "none");
 });
 
 test("private fields remain absent", async ({ page }) => {
@@ -105,4 +92,12 @@ test("404 and mobile navigation work", async ({ page, isMobile }) => {
     await page.getByRole("button", { name: "打开菜单" }).click();
     await expect(page.getByRole("navigation", { name: "移动导航" })).toBeVisible();
   }
+});
+
+test("layout never overflows horizontally", async ({ page }) => {
+  await page.goto(sitePath("/"));
+  const overflows = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  );
+  expect(overflows).toBe(false);
 });

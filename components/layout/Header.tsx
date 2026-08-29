@@ -3,7 +3,18 @@
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { hrefFor, navigation, profile } from "@/lib/content";
+import {
+  awards,
+  education,
+  getGithubProjects,
+  hrefFor,
+  navigation,
+  profile,
+  projects,
+  publications,
+  researchExperiences,
+  researchTopics,
+} from "@/lib/content";
 import { withoutBasePath } from "@/lib/paths";
 import type { Locale } from "@/types/content";
 import { ThemeSwitcher } from "./ThemeSwitcher";
@@ -14,30 +25,39 @@ function useLocale() {
 }
 
 function itemHref(locale: Locale, path: string) {
-  return hrefFor(locale, path);
+  return `${hrefFor(locale)}#${path}`;
 }
 
+const visibleSections = new Set([
+  ...(researchTopics.some((item) => item.visible) ? ["research"] : []),
+  ...(publications.some((item) => item.visible) ? ["publications"] : []),
+  ...(researchExperiences.some((item) => item.visible) ? ["experience"] : []),
+  ...(projects.some((item) => item.visible) || getGithubProjects().length ? ["projects"] : []),
+  ...(awards.some((item) => item.visible) ? ["awards"] : []),
+  ...(education.some((item) => item.visible) ? ["education"] : []),
+  "contact",
+]);
+
+const visibleNavigation = navigation.filter((item) => visibleSections.has(item.path));
+
 export function DesktopNavigation({ locale }: { locale: Locale }) {
-  const pathname = withoutBasePath(usePathname());
   return (
     <nav aria-label={locale === "zh" ? "主导航" : "Primary navigation"} className="hidden lg:block">
       <ul className="flex items-center gap-5 text-[0.82rem]">
-        {navigation.map((item) => {
-          const href = itemHref(locale, item.path);
-          const routePath = withoutBasePath(href);
-          const active = pathname === routePath.slice(0, -1) || pathname === routePath;
-          return (
-            <li key={item.path}>
-              <a
-                className="link-underline py-2"
-                aria-current={active ? "page" : undefined}
-                href={href}
-              >
-                {item[locale]}
-              </a>
-            </li>
-          );
-        })}
+        {visibleNavigation.map((item) => (
+          <li key={item.path}>
+            <a className="link-underline py-2" href={itemHref(locale, item.path)}>
+              {item[locale]}
+            </a>
+          </li>
+        ))}
+        {profile.cvUrl && (
+          <li>
+            <a className="link-underline py-2" href={profile.cvUrl}>
+              CV
+            </a>
+          </li>
+        )}
       </ul>
     </nav>
   );
@@ -86,10 +106,10 @@ export function MobileNavigation({ locale }: { locale: Locale }) {
         <nav
           id="mobile-nav"
           aria-label={locale === "zh" ? "移动导航" : "Mobile navigation"}
-          className="absolute inset-x-0 top-full border-b border-[var(--line)] bg-[var(--paper)] px-6 py-5 shadow-lg"
+          className="absolute inset-x-0 top-full border-b border-[var(--line)] bg-[var(--paper)] px-6 py-5"
         >
           <ul className="grid grid-cols-2 gap-x-6 gap-y-4">
-            {navigation.map((item) => (
+            {visibleNavigation.map((item) => (
               <li key={item.path}>
                 <a
                   href={itemHref(locale, item.path)}
@@ -100,6 +120,13 @@ export function MobileNavigation({ locale }: { locale: Locale }) {
                 </a>
               </li>
             ))}
+            {profile.cvUrl && (
+              <li>
+                <a href={profile.cvUrl} onClick={() => setOpen(false)} className="block py-1">
+                  CV
+                </a>
+              </li>
+            )}
           </ul>
         </nav>
       )}
@@ -114,19 +141,15 @@ export function Header() {
   }, [locale]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--header)] backdrop-blur-md">
-      <div className="shell flex h-[4.25rem] items-center justify-between gap-5">
+    <header className="sticky inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[var(--header)]">
+      <div className="shell flex h-16 items-center justify-between gap-5">
         <a
           href={hrefFor(locale)}
           className="flex items-baseline gap-3"
           aria-label={locale === "zh" ? "程硕首页" : "Shuo Cheng home"}
         >
-          <span className="text-[1.15rem] font-bold">
-            {locale === "zh" ? profile.nameZh : profile.nameEn}
-          </span>
-          <span className="hidden text-[0.7rem] tracking-[0.14em] text-[var(--muted)] sm:inline">
-            ACADEMIC HOMEPAGE
-          </span>
+          <span className="text-[1.05rem] font-semibold">{profile.nameEn}</span>
+          <span className="text-sm text-[var(--muted)]">{profile.nameZh}</span>
         </a>
         <div className="flex items-center gap-1">
           <DesktopNavigation locale={locale} />

@@ -1,8 +1,8 @@
 {
-  "siteTitle": "程硕 · 个人学术主页",
-  "siteDescription": "程硕，杭州电子科技大学网络空间安全专业本科生个人学术主页。",
-  "homeEyebrow": "网络空间安全 · 本科生",
-  "researchStatement": "以可复现的实验和清晰的问题建模，理解动态网络环境中的资源与状态。",
+  "siteTitle": "Shuo Cheng | Academic Homepage",
+  "siteDescription": "程硕，杭州电子科技大学本科生研究者，关注卫星网络、网络资源管理、强化学习与时空学习。",
+  "homeEyebrow": "本科生研究者",
+  "researchStatement": "关注智能网络系统，重点探索动态网络与卫星网络中的学习驱动资源管理、时空建模和网络状态预测。",
   "futurePlans": [
     "面向复杂网络环境的资源建模与调度",
     "卫星网络中的动态资源管理",

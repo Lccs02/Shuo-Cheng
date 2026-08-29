@@ -23,8 +23,10 @@ components/common/Analytics.tsx
 components/common/BackToTop.tsx
 components/common/DocumentLanguage.tsx
 components/common/ImageWithFallback.tsx
+components/common/MotionOrchestrator.tsx
 components/common/Primitives.tsx
 components/home/Hero.tsx
+components/home/ResearchVisual.tsx
 components/layout/Footer.tsx
 components/layout/Header.tsx
 components/layout/ThemeSwitcher.tsx
@@ -42,9 +44,13 @@ content/navigation.json
 content/profile.json
 content/projects.json
 content/publications.json
+content/research.json
+content/research-experiences.json
+content/news.json
 content/research-interests.json
 content/site.en.json
 content/site.zh.json
+public/images/research/satellite-rl-visual.webp
 content/skills.json
 docs/file-manifest.md
 docs/phase-1-plan.md

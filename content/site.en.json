@@ -1,8 +1,8 @@
 {
-  "siteTitle": "Shuo Cheng · Academic Homepage",
-  "siteDescription": "Academic homepage of Shuo Cheng, an undergraduate student in Cyberspace Security at Hangzhou Dianzi University.",
-  "homeEyebrow": "Cyberspace Security · Undergraduate",
-  "researchStatement": "Understanding resources and states in dynamic network environments through reproducible experiments and clear problem formulation.",
+  "siteTitle": "Shuo Cheng | Academic Homepage",
+  "siteDescription": "Shuo Cheng is an undergraduate researcher at Hangzhou Dianzi University working on satellite networks, network resource management, reinforcement learning, and spatio-temporal learning.",
+  "homeEyebrow": "Undergraduate Researcher",
+  "researchStatement": "I work on intelligent networked systems, with a focus on learning-based resource management, spatio-temporal modeling, and network-state forecasting for dynamic and satellite networks.",
   "futurePlans": [
     "Resource modeling and scheduling in complex network environments",
     "Dynamic resource management in satellite networks",

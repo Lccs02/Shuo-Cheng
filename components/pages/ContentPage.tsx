@@ -1,32 +1,32 @@
 import { Code2, Mail, MapPin } from "lucide-react";
+import { notFound } from "next/navigation";
 import {
   AwardItem,
-  EducationTimeline,
+  EducationList,
   ExperienceTimeline,
 } from "@/components/awards/TimelineComponents";
 import { DocumentLanguage } from "@/components/common/DocumentLanguage";
 import {
-  EmptyState,
   ExternalLink,
   PrivacyNotice,
   SectionHeading,
   SkillTag,
 } from "@/components/common/Primitives";
 import { CompetitionCard, ProjectCard } from "@/components/projects/ProjectComponents";
-import { PublicationCard, ResearchInterestCard } from "@/components/research/ResearchComponents";
+import { PublicationCard, ResearchTopicList } from "@/components/research/ResearchComponents";
 import {
   awards,
   competitions,
   education,
   experiences,
   getGithubProjects,
-  interests,
   profile,
   projects,
   publications,
   publicContact,
   skills,
   sites,
+  researchTopics,
 } from "@/lib/content";
 import { getVisiblePrivateContact } from "@/lib/private-contact";
 import type { Locale } from "@/types/content";
@@ -80,15 +80,11 @@ function About({ locale }: { locale: Locale }) {
       </section>
       <section className="section section-grid">
         <SectionHeading title={locale === "zh" ? "教育背景" : "Education"} />
-        <EducationTimeline items={education} locale={locale} />
+        <EducationList items={education.filter((item) => item.visible)} locale={locale} />
       </section>
       <section className="section section-grid">
         <SectionHeading title={locale === "zh" ? "研究兴趣" : "Research Interests"} />
-        <div className="grid gap-x-8 md:grid-cols-2">
-          {interests.map((item, index) => (
-            <ResearchInterestCard key={item.id} item={item} locale={locale} index={index} />
-          ))}
-        </div>
+        <ResearchTopicList topics={researchTopics.filter((item) => item.visible)} locale={locale} />
       </section>
       <section className="section section-grid">
         <SectionHeading title={locale === "zh" ? "技能与工具" : "Skills & Tools"} />
@@ -120,35 +116,18 @@ function Research({ locale }: { locale: Locale }) {
           title={locale === "zh" ? "研究兴趣" : "Research Interests"}
           description={sites[locale].researchStatement}
         />
-        <div className="grid gap-x-8 md:grid-cols-2">
-          {interests.map((item, index) => (
-            <ResearchInterestCard key={item.id} item={item} locale={locale} index={index} />
-          ))}
-        </div>
+        <ResearchTopicList topics={researchTopics.filter((item) => item.visible)} locale={locale} />
       </section>
-      <section className="section section-grid">
-        <SectionHeading title={locale === "zh" ? "论文成果" : "Publications"} />
-        <div>
-          {visible.length ? (
-            visible.map((item) => (
+      {visible.length > 0 && (
+        <section className="section section-grid">
+          <SectionHeading title={locale === "zh" ? "论文成果" : "Publications"} />
+          <div>
+            {visible.map((item) => (
               <PublicationCard key={item.id} publication={item} locale={locale} />
-            ))
-          ) : (
-            <EmptyState
-              title={
-                locale === "zh"
-                  ? "论文信息将在公开后更新。"
-                  : "Publication details will be updated when public."
-              }
-              description={
-                locale === "zh"
-                  ? "当前三篇投稿中论文均为第一作者；为避免泄露未公开信息，题目、投稿 venue 和链接未在页面展示。"
-                  : "Three first-author manuscripts are currently under review. Titles, venues, and links remain hidden until disclosure is appropriate."
-              }
-            />
-          )}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="section section-grid">
         <SectionHeading
           title={locale === "zh" ? "在研内容与未来计划" : "Current & Future Directions"}
@@ -183,21 +162,12 @@ function Research({ locale }: { locale: Locale }) {
 
 function Projects({ locale }: { locale: Locale }) {
   const visible = [...projects.filter((item) => item.visible), ...getGithubProjects()];
-  return visible.length ? (
+  return (
     <div>
       {visible.map((item) => (
         <ProjectCard key={item.id} project={item} locale={locale} />
       ))}
     </div>
-  ) : (
-    <EmptyState
-      title={locale === "zh" ? "项目内容正在整理中。" : "Project materials are being organized."}
-      description={
-        locale === "zh"
-          ? "不会以虚构示例替代真实项目；可在 content/projects.json 中补充后启用。"
-          : "Placeholder projects are not shown as real work. Add verified entries in content/projects.json when ready."
-      }
-    />
   );
 }
 
@@ -222,7 +192,7 @@ function Awards({ locale }: { locale: Locale }) {
     <div className="space-y-10">
       {levels.map((level) => {
         const items = awards
-          .filter((item) => item.level === level)
+          .filter((item) => item.visible && item.level === level)
           .sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
         if (!items.length) return null;
         return (
@@ -242,13 +212,7 @@ function Awards({ locale }: { locale: Locale }) {
 
 function Experience({ locale }: { locale: Locale }) {
   const visible = experiences.filter((item) => item.visible);
-  return visible.length ? (
-    <ExperienceTimeline items={visible} locale={locale} />
-  ) : (
-    <EmptyState
-      title={locale === "zh" ? "经历内容正在整理中。" : "Experience details are being organized."}
-    />
-  );
+  return <ExperienceTimeline items={visible} locale={locale} />;
 }
 
 function Contact({ locale }: { locale: Locale }) {
@@ -416,6 +380,14 @@ function Privacy({ locale }: { locale: Locale }) {
 }
 
 export function ContentPage({ locale, section }: { locale: Locale; section: PageSection }) {
+  if (
+    section === "projects" &&
+    !projects.some((item) => item.visible) &&
+    !getGithubProjects().length
+  ) {
+    notFound();
+  }
+  if (section === "experience" && !experiences.some((item) => item.visible)) notFound();
   const content = {
     about: <About locale={locale} />,
     research: <Research locale={locale} />,

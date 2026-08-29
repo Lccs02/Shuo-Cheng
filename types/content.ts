@@ -17,10 +17,60 @@ export type Publication = {
   paperUrl?: string;
   codeUrl?: string;
   projectUrl?: string;
+  arxivUrl?: string;
+  bibtexUrl?: string;
   bibtex?: string;
-  cover?: string;
+  thumbnail?: string;
+  descriptionZh?: string;
+  descriptionEn?: string;
   tags: string[];
-  featured: boolean;
+  selected: boolean;
+  visible: boolean;
+};
+
+export type ResearchTopic = {
+  id: string;
+  titleZh: string;
+  titleEn: string;
+  descriptionZh: string;
+  descriptionEn: string;
+  keywords: string[];
+  stage: "active" | "current_interest";
+  paperUrl?: string;
+  codeUrl?: string;
+  projectUrl?: string;
+  visible: boolean;
+};
+
+export type ResearchExperience = {
+  id: string;
+  institutionZh: string;
+  institutionEn: string;
+  labZh?: string;
+  labEn?: string;
+  roleZh: string;
+  roleEn: string;
+  advisorZh?: string;
+  advisorEn?: string;
+  startDate: string;
+  endDate?: string;
+  topicZh: string;
+  topicEn: string;
+  descriptionZh: string;
+  descriptionEn: string;
+  highlightsZh: string[];
+  highlightsEn: string[];
+  relatedPublicationIds: string[];
+  visible: boolean;
+};
+
+export type NewsItem = {
+  id: string;
+  date: string;
+  contentZh: string;
+  contentEn: string;
+  type: "publication" | "research" | "award" | "education" | "other";
+  link?: string;
   visible: boolean;
 };
 
@@ -62,9 +112,11 @@ export type Project = {
   status: "completed" | "in_progress" | "archived";
   cover?: string;
   githubUrl?: string;
+  docsUrl?: string;
+  paperUrl?: string;
   demoUrl?: string;
   reportUrl?: string;
   tags: string[];
-  featured: boolean;
+  selected: boolean;
   visible: boolean;
 };

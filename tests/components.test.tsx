@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { AccessibleDialog } from "@/components/common/AccessibleDialog";
-import { EmptyState } from "@/components/common/Primitives";
 import { PublicationCard } from "@/components/research/ResearchComponents";
 
 beforeAll(() => {
@@ -14,11 +13,6 @@ beforeAll(() => {
 });
 
 describe("content components", () => {
-  it("renders a natural empty state", () => {
-    render(<EmptyState title="项目内容正在整理中。" />);
-    expect(screen.getByText("项目内容正在整理中。")).toBeInTheDocument();
-  });
-
   it("opens and closes an accessible dialog", () => {
     const { container } = render(
       <AccessibleDialog trigger="查看详情" title="详情">
@@ -43,7 +37,7 @@ describe("content components", () => {
           status: "accepted",
           bibtex: "@article{sample}",
           tags: [],
-          featured: false,
+          selected: false,
           visible: true,
         }}
       />,

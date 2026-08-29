@@ -23,10 +23,8 @@ export function ImageWithFallback({
       <div
         role="img"
         aria-label={alt}
-        className={`network-field grid place-items-center bg-[var(--paper-deep)] text-xs tracking-[0.18em] text-[var(--muted)] ${className}`}
-      >
-        IMAGE
-      </div>
+        className={`image-fallback bg-[var(--surface)] ${className}`}
+      />
     );
   }
   return (

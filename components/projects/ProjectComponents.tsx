@@ -1,46 +1,36 @@
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
-import { ExternalLink, SkillTag } from "@/components/common/Primitives";
+import { ExternalLink } from "@/components/common/Primitives";
 import type { Competition, Locale, Project } from "@/types/content";
 
 export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
   return (
-    <article className="grid gap-5 border-t border-[var(--line)] py-6 md:grid-cols-[11rem_1fr]">
-      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--paper-deep)]">
-        <ImageWithFallback
-          src={project.cover}
-          alt={locale === "zh" ? `${project.titleZh}封面` : `${project.titleEn} cover`}
-        />
-      </div>
-      <div>
-        <div className="flex flex-wrap justify-between gap-3">
-          <h3 className="text-xl">{locale === "zh" ? project.titleZh : project.titleEn}</h3>
-          <span className="text-xs uppercase tracking-wider text-[var(--accent)]">
-            {project.status.replace("_", " ")}
-          </span>
+    <article className={project.cover ? "project-row" : "border-t border-[var(--line)] py-5"}>
+      {project.cover && (
+        <div className="relative aspect-[16/10] overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+          <ImageWithFallback
+            src={project.cover}
+            alt={locale === "zh" ? `${project.titleZh}封面` : `${project.titleEn} cover`}
+            sizes="(max-width: 720px) 100vw, 220px"
+            className="transition duration-500 ease-out hover:scale-[1.02]"
+          />
         </div>
-        <p className="mt-2 text-[0.92rem] leading-6 text-[var(--muted)]">
+      )}
+      <div>
+        <h3 className="academic-item-title">
+          {locale === "zh" ? project.titleZh : project.titleEn}
+        </h3>
+        <p className="mt-2 leading-7 text-[var(--muted)]">
           {locale === "zh" ? project.summaryZh : project.summaryEn}
         </p>
-        {(locale === "zh" ? project.contributionZh : project.contributionEn).length > 0 && (
-          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[0.92rem]">
-            {(locale === "zh" ? project.contributionZh : project.contributionEn).map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        {project.tags.length > 0 && (
+          <p className="mt-2 text-sm text-[var(--muted)]">{project.tags.join(" · ")}</p>
         )}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {project.tags.map((tag) => (
-            <SkillTag key={tag}>{tag}</SkillTag>
-          ))}
-        </div>
-        <div className="mt-4 flex gap-4 text-sm">
+        <div className="academic-links mt-3">
           {project.githubUrl && <ExternalLink href={project.githubUrl}>GitHub</ExternalLink>}
+          {project.docsUrl && <ExternalLink href={project.docsUrl}>Documentation</ExternalLink>}
+          {project.paperUrl && <ExternalLink href={project.paperUrl}>Paper</ExternalLink>}
           {project.demoUrl && <ExternalLink href={project.demoUrl}>Demo</ExternalLink>}
-          {project.reportUrl && (
-            <ExternalLink href={project.reportUrl}>
-              {locale === "zh" ? "报告" : "Report"}
-            </ExternalLink>
-          )}
+          {project.reportUrl && <ExternalLink href={project.reportUrl}>Report</ExternalLink>}
         </div>
       </div>
     </article>
@@ -55,66 +45,28 @@ export function CompetitionCard({
   locale: Locale;
 }) {
   const contributions = locale === "zh" ? competition.contributionZh : competition.contributionEn;
+  const role = locale === "zh" ? competition.roleZh : competition.roleEn;
   return (
-    <article className="group border-t border-[var(--line)] py-5 transition-transform duration-200 hover:translate-y-[-2px]">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="eyebrow">
-          {locale === "zh" ? competition.awardZh : competition.awardEn}
-        </span>
-        <span className="text-sm text-[var(--muted)]">{competition.year ?? "TODO"}</span>
+    <article className="border-t border-[var(--line)] py-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="academic-item-title">
+          {locale === "zh" ? competition.nameZh : competition.nameEn}
+        </h3>
+        {competition.year && (
+          <span className="text-sm text-[var(--muted)]">{competition.year}</span>
+        )}
       </div>
-      <h3 className="mt-3 text-xl leading-snug">
-        {locale === "zh" ? competition.nameZh : competition.nameEn}
-      </h3>
-      {competition.cover && (
-        <div className="relative mt-5 aspect-[16/10] max-w-xl overflow-hidden bg-[var(--paper-deep)]">
-          <ImageWithFallback
-            src={competition.cover}
-            alt={
-              locale === "zh"
-                ? `${competition.nameZh}项目封面`
-                : `${competition.nameEn} project cover`
-            }
-          />
-        </div>
-      )}
-      {(competition.projectTitleZh || competition.projectTitleEn) && (
-        <p className="mt-2 italic">
-          {locale === "zh" ? competition.projectTitleZh : competition.projectTitleEn}
-        </p>
-      )}
-      {(competition.roleZh || competition.roleEn) && (
-        <p className="mt-2 text-sm text-[var(--muted)]">
-          {locale === "zh" ? "角色" : "Role"} ·{" "}
-          {locale === "zh" ? competition.roleZh : competition.roleEn}
-        </p>
-      )}
+      <p className="mt-1 text-sm font-medium text-[var(--accent)]">
+        {locale === "zh" ? competition.awardZh : competition.awardEn}
+      </p>
+      {role && <p className="mt-2 text-sm text-[var(--muted)]">{role}</p>}
       {contributions && contributions.length > 0 && (
-        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-[var(--muted)]">
+        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-6 text-[var(--muted)]">
           {contributions.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
       )}
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {competition.tags.map((tag) => (
-          <SkillTag key={tag}>{tag}</SkillTag>
-        ))}
-      </div>
-      <div className="mt-4 flex gap-4 text-sm">
-        {competition.githubUrl && <ExternalLink href={competition.githubUrl}>GitHub</ExternalLink>}
-        {competition.demoUrl && <ExternalLink href={competition.demoUrl}>Demo</ExternalLink>}
-        {competition.reportUrl && (
-          <ExternalLink href={competition.reportUrl}>
-            {locale === "zh" ? "报告" : "Report"}
-          </ExternalLink>
-        )}
-        {competition.certificate && (
-          <ExternalLink href={competition.certificate}>
-            {locale === "zh" ? "查看证明" : "View certificate"}
-          </ExternalLink>
-        )}
-      </div>
     </article>
   );
 }

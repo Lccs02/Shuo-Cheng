@@ -8,6 +8,9 @@ import profileJson from "@/content/profile.json";
 import projectsJson from "@/content/projects.json";
 import publicationsJson from "@/content/publications.json";
 import interestsJson from "@/content/research-interests.json";
+import researchJson from "@/content/research.json";
+import researchExperiencesJson from "@/content/research-experiences.json";
+import newsJson from "@/content/news.json";
 import siteEnJson from "@/content/site.en.json";
 import siteZhJson from "@/content/site.zh.json";
 import skillsJson from "@/content/skills.json";
@@ -24,6 +27,9 @@ import {
   publicationsSchema,
   publicContactSchema,
   researchInterestsSchema,
+  researchTopicsSchema,
+  researchExperiencesSchema,
+  newsSchema,
   siteSchema,
   skillsSchema,
 } from "@/lib/schemas";
@@ -34,7 +40,10 @@ export const profile = profileSchema.parse(profileJson);
 export const navigation = navigationSchema.parse(navigationJson);
 export const education = educationSchema.parse(educationJson);
 export const interests = researchInterestsSchema.parse(interestsJson);
+export const researchTopics = researchTopicsSchema.parse(researchJson);
 export const publications = publicationsSchema.parse(publicationsJson);
+export const researchExperiences = researchExperiencesSchema.parse(researchExperiencesJson);
+export const news = newsSchema.parse(newsJson);
 export const projects = projectsSchema.parse(projectsJson);
 export const competitions = competitionsSchema.parse(competitionsJson);
 export const awards = awardsSchema.parse(awardsJson);
@@ -66,7 +75,7 @@ export function getVisibleStats() {
   const national = awards.filter((item) => item.level === "national").length;
   const provincial = awards.filter((item) => item.level === "provincial").length;
   const selectedProjects =
-    projects.filter((item) => item.visible && item.featured).length +
+    projects.filter((item) => item.visible && item.selected).length +
     githubCache.repositories.length;
   return { published, underReview, national, provincial, selectedProjects };
 }
@@ -85,7 +94,7 @@ export function getGithubProjects() {
     tags: [repository.language, ...repository.topics].filter(
       (item): item is string => typeof item === "string" && item.length > 0,
     ),
-    featured: true,
+    selected: true,
     visible: true,
   }));
 }

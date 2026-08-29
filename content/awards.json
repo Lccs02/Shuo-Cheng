@@ -1,42 +1,46 @@
 [
   {
     "id": "teddy-cup-award",
-    "nameZh": "泰迪杯 · 国家级三等奖",
-    "nameEn": "Teddy Cup · National Third Prize",
-    "issuerZh": "TODO：补充颁发单位",
-    "issuerEn": "TODO: Add awarding organization",
+    "nameZh": "泰迪杯",
+    "nameEn": "Teddy Cup",
+    "distinctionZh": "国家级三等奖",
+    "distinctionEn": "National Third Prize",
     "level": "national",
     "type": "competition",
-    "featured": true
+    "featured": true,
+    "visible": true
   },
   {
     "id": "service-outsourcing-award",
-    "nameZh": "服务外包创新创业大赛 · 国家级三等奖",
-    "nameEn": "Service Outsourcing Innovation and Entrepreneurship Competition · National Third Prize",
-    "issuerZh": "TODO：补充颁发单位",
-    "issuerEn": "TODO: Add awarding organization",
+    "nameZh": "服务外包创新创业大赛",
+    "nameEn": "Service Outsourcing Innovation and Entrepreneurship Competition",
+    "distinctionZh": "国家级三等奖",
+    "distinctionEn": "National Third Prize",
     "level": "national",
     "type": "competition",
-    "featured": true
+    "featured": true,
+    "visible": true
   },
   {
     "id": "computer-design-award",
-    "nameZh": "大学生计算机设计大赛 · 省级一等奖",
-    "nameEn": "College Student Computer Design Competition · Provincial First Prize",
-    "issuerZh": "TODO：补充颁发单位",
-    "issuerEn": "TODO: Add awarding organization",
+    "nameZh": "大学生计算机设计大赛",
+    "nameEn": "College Student Computer Design Competition",
+    "distinctionZh": "省级一等奖",
+    "distinctionEn": "Provincial First Prize",
     "level": "provincial",
     "type": "competition",
-    "featured": true
+    "featured": true,
+    "visible": true
   },
   {
     "id": "innovation-training-award",
-    "nameZh": "大学生创新创业训练计划 · 省级立项",
-    "nameEn": "Student Innovation and Entrepreneurship Training Program · Provincial Project",
-    "issuerZh": "TODO：补充颁发单位",
-    "issuerEn": "TODO: Add awarding organization",
+    "nameZh": "大学生创新创业训练计划",
+    "nameEn": "Student Innovation and Entrepreneurship Training Program",
+    "distinctionZh": "省级立项 · 负责人",
+    "distinctionEn": "Provincial Project · Project Lead",
     "level": "provincial",
     "type": "research",
-    "featured": true
+    "featured": true,
+    "visible": true
   }
 ]

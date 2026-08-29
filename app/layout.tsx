@@ -11,8 +11,26 @@ import { withBasePath } from "@/lib/paths";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: sites.zh.siteTitle, template: `%s · ${profile.nameZh}` },
+  metadataBase: new URL("https://lccs02.github.io"),
+  title: { default: sites.zh.siteTitle, template: `%s | ${profile.nameEn}` },
   description: sites.zh.siteDescription,
+  authors: [{ name: profile.nameEn, url: profile.github }],
+  alternates: {
+    canonical: "/Shuo-Cheng/",
+    languages: {
+      "zh-CN": "/Shuo-Cheng/",
+      en: "/Shuo-Cheng/en/",
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: "/Shuo-Cheng/",
+    title: sites.en.siteTitle,
+    description: sites.en.siteDescription,
+    siteName: sites.en.siteTitle,
+    locale: "zh_CN",
+    alternateLocale: ["en_US"],
+  },
   robots: sites.zh.allowSearchIndexing
     ? { index: true, follow: true }
     : { index: false, follow: false, nocache: true },
@@ -22,8 +40,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f7f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#081419" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b111b" },
   ],
 };
 

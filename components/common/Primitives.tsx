@@ -16,7 +16,7 @@ export function ExternalLink({
       href={withBasePath(href)}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1 text-[var(--accent)] ${className}`}
+      className={`inline-flex items-center gap-1 text-[var(--accent)] underline-offset-4 hover:underline ${className}`}
     >
       {children}
       <ExternalLinkIcon size={13} aria-hidden />
@@ -34,17 +34,21 @@ export function SectionHeading({
   description?: string;
 }) {
   return (
-    <header>
+    <header className="academic-section-heading">
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <h2 className="mt-2 text-[1.75rem] font-normal leading-tight sm:text-[2.1rem]">{title}</h2>
-      {description && <p className="prose-copy mt-4 max-w-2xl">{description}</p>}
+      <h2>{title}</h2>
+      {description && (
+        <p className="mt-3 max-w-[15rem] text-[0.94rem] leading-7 text-[var(--muted)]">
+          {description}
+        </p>
+      )}
     </header>
   );
 }
 
 export function EmptyState({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="border-l-2 border-[var(--accent)] bg-[var(--paper-deep)] px-5 py-5">
+    <div className="border-l-2 border-[var(--accent)] px-5 py-3">
       <p className="text-[1.05rem]">{title}</p>
       {description && (
         <p className="mt-1.5 text-[0.9rem] leading-6 text-[var(--muted)]">{description}</p>
@@ -55,7 +59,7 @@ export function EmptyState({ title, description }: { title: string; description?
 
 export function SkillTag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex rounded-full border border-[var(--line)] bg-[var(--signal-soft)] px-2.5 py-0.5 text-[0.76rem] text-[var(--muted)]">
+    <span className="inline-flex border border-[var(--line)] px-2 py-0.5 text-[0.78rem] text-[var(--muted)]">
       {children}
     </span>
   );
@@ -63,7 +67,7 @@ export function SkillTag({ children }: { children: ReactNode }) {
 
 export function PrivacyNotice({ children }: { children: ReactNode }) {
   return (
-    <aside className="border border-[var(--line)] bg-[var(--paper-deep)] p-5 text-[0.9rem] leading-6 text-[var(--muted)]">
+    <aside className="border border-[var(--line)] bg-[var(--surface)] p-5 text-[0.9rem] leading-6 text-[var(--muted)]">
       {children}
     </aside>
   );

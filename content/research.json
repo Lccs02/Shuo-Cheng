@@ -1,0 +1,32 @@
+[
+  {
+    "id": "satellite-network-modeling",
+    "titleZh": "卫星网络流量与状态建模",
+    "titleEn": "Satellite Traffic and State Modeling",
+    "descriptionZh": "关注多业务卫星网络中的动态流量与网络状态，探索面向预测和表征的时空学习方法。",
+    "descriptionEn": "Exploring spatio-temporal methods for forecasting and representing dynamic traffic and network states in multi-service satellite networks.",
+    "keywords": ["Satellite Networks", "Traffic Forecasting", "Spatio-temporal Learning"],
+    "stage": "current_interest",
+    "visible": true
+  },
+  {
+    "id": "multi-granularity-learning",
+    "titleZh": "多粒度时空学习",
+    "titleEn": "Multi-granularity Spatio-temporal Learning",
+    "descriptionZh": "探索不同时间与空间粒度下的统一建模与表征学习，以理解非平稳网络数据中的多尺度结构。",
+    "descriptionEn": "Exploring unified modeling and representation learning across temporal and spatial granularities for multi-scale structures in non-stationary network data.",
+    "keywords": ["Spatio-temporal Learning", "Multi-scale Modeling", "Deep Learning"],
+    "stage": "current_interest",
+    "visible": true
+  },
+  {
+    "id": "learning-based-resource-management",
+    "titleZh": "学习驱动的网络资源管理",
+    "titleEn": "Learning-based Network Resource Management",
+    "descriptionZh": "面向动态网络环境，关注强化学习、基于模型的强化学习与世界模型在资源决策中的应用。",
+    "descriptionEn": "Working toward resource decision methods for dynamic networks using reinforcement learning, model-based reinforcement learning, and world models.",
+    "keywords": ["Reinforcement Learning", "Model-based RL", "World Models", "Resource Management"],
+    "stage": "current_interest",
+    "visible": true
+  }
+]

@@ -6,12 +6,17 @@ import {
   profile,
   projects,
   publications,
+  researchExperiences,
+  researchTopics,
+  news,
 } from "@/lib/content";
 
 describe("content integrity", () => {
-  it("keeps unpublished placeholder papers hidden", () => {
-    expect(publications).toHaveLength(3);
-    expect(publications.every((item) => item.firstAuthor && !item.visible)).toBe(true);
+  it("does not expose incomplete academic records", () => {
+    expect(publications).toHaveLength(0);
+    expect(researchExperiences).toHaveLength(0);
+    expect(news).toHaveLength(0);
+    expect(JSON.stringify({ publications, researchExperiences, news })).not.toMatch(/TODO/i);
   });
 
   it("does not invent project records", () => {
@@ -23,6 +28,11 @@ describe("content integrity", () => {
     expect(stats.national).toBe(2);
     expect(stats.provincial).toBe(2);
     expect(stats.published).toBe(0);
+  });
+
+  it("defines three visible research directions", () => {
+    expect(researchTopics.filter((item) => item.visible)).toHaveLength(3);
+    expect(researchTopics.every((item) => item.keywords.length >= 3)).toBe(true);
   });
 
   it("contains only verified public contact basics", () => {

@@ -79,15 +79,17 @@ npm.cmd run build
 - `profile.json`：姓名、学校、专业、简介、公开链接和最后更新时间
 - `site.zh.json` / `site.en.json`：页面说明、研究计划、统计和搜索索引设置
 - `navigation.json`：双语导航
-- `education.json`、`experiences.json`：教育和经历时间轴
-- `research-interests.json`：研究方向、介绍和关键词
-- `publications.json`、`projects.json`：论文和项目
+- `education.json`、`experiences.json`：教育和交流经历
+- `research.json`：首页的 2～3 条科研主线、阶段和相关链接
+- `research-experiences.json`：实验室、导师、研究主题和科研产出（没有公开数据时使用空数组）
+- `publications.json`、`projects.json`：论文和科研项目
+- `news.json`：按日期维护的科研动态
 - `competitions.json`、`awards.json`：竞赛和荣誉
 - `skills.json`：技能分组
 - `contact.public.json`：公开联系方式显示开关
 
-同一条内容的 `Zh` 和 `En` 字段必须分别维护。没有可靠英文译文时保留明确 TODO 并保持内容不可见，
-不要把未经核对的机器翻译当作正式材料。修改后先运行：
+同一条内容的 `Zh` 和 `En` 字段必须分别维护。没有可靠英文译文或公开信息时，删除该条目、保留为空数组，
+或设置 `visible: false`；不要在公开字段中写 TODO，也不要把未经核对的机器翻译当作正式材料。修改后先运行：
 
 ```powershell
 npm.cmd run validate:content
@@ -97,15 +99,21 @@ npm.cmd run validate:content
 
 ## 替换头像和图片
 
-将真实照片替换为：
+将真实照片放入 `public/images/`，例如：
 
 ```text
-public/images/profile-placeholder.jpg
+public/images/profile.jpg
 ```
 
-建议使用竖向 4:5 证件照，至少 1200 × 1500 像素，文件名不变即可。当前文件是无真实身份的抽象占位图。
+建议使用竖向 4:5 证件照，至少 1200 × 1500 像素。随后在 `content/profile.json` 中设置
+`"photo": "/images/profile.jpg"` 和 `"photoVisible": true`；未提供正式照片时保持 `photoVisible: false`。
 项目、竞赛和奖项封面建议使用 16:10，至少 1600 × 1000 像素；可使用 JPG、WebP 或 AVIF。
 图片路径从 `/images/...` 开始。组件为所有图片保留固定比例，并在加载失败时显示本地 fallback，避免布局跳动。
+
+首页“研究方向”模块中的研究概念图由 `content/profile.json` 中的 `researchVisual`、中英文替代文本和
+`researchVisualVisible` 控制。默认素材位于
+`public/images/research/satellite-rl-visual.webp`；替换时应避免图片包含未经核实的论文、奖项或机构名称。
+如果图片人物并非本人，应在图注中明确标注为概念插画，避免被访问者误认为个人照片。
 
 ## 新增论文
 
@@ -120,30 +128,30 @@ public/images/profile-placeholder.jpg
   "venue": "公开后的真实期刊或会议",
   "year": 2027,
   "status": "under_review",
-  "abstractZh": "经确认的中文摘要",
-  "abstractEn": "Verified English abstract",
+  "descriptionZh": "一句话贡献概述",
+  "descriptionEn": "One-sentence contribution summary",
   "paperUrl": "https://...",
   "codeUrl": "https://...",
   "bibtex": "@article{...}",
   "tags": ["Network"],
-  "featured": true,
+  "selected": true,
   "visible": true
 }
 ```
 
 状态可选 `published`、`accepted`、`under_review`、`preprint`、`in_progress`。未公开时保持
-`visible: false`；链接、DOI、venue 和年份没有真实信息时直接省略，不要使用 `#`。
+`visible: false`；`selected: true` 控制是否进入首页。链接、DOI、venue 和年份没有真实信息时直接省略，不要使用 `#`。
 
 ## 新增项目
 
 编辑 `content/projects.json`。必须填写中英文名称、简介、个人贡献、状态、标签和显示开关。
-`visible: true` 才会公开，`featured: true` 且公开时才进入首页。封面、GitHub、Demo 和报告链接均为可选字段。
+`visible: true` 才会公开，`selected: true` 且公开时才进入首页。封面、GitHub、Documentation、Paper、Demo 和报告链接均为可选字段。
 
 ## 新增奖项和竞赛
 
 - 竞赛写入 `content/competitions.json`，个人角色和贡献必须只写本人实际完成的内容。
 - 荣誉写入 `content/awards.json`，级别为 `national`、`provincial` 或 `university`。
-- 不确定年份、正式全称、颁发单位时保留 TODO，不要推断。
+- 不确定年份或颁发单位时直接省略对应可选字段，不要推断，也不要输出占位文字。
 - 证明材料可放入 `public/certificates/` 并在条目中配置路径，界面只提供“查看证明”。
 
 公开网页无法真正阻止浏览者保存已经加载的图片或 PDF，“仅查看”只能代表界面不主动提供下载按钮，
@@ -156,7 +164,7 @@ npm.cmd run content:studio
 ```
 
 打开 <http://127.0.0.1:4173>。工具只监听本机，可编辑个人资料、研究兴趣、论文、项目、奖项、
-竞赛和时间轴；数组条目可以在 JSON 编辑器中新增、修改或删除，也可切换 `featured` 和 `visible`。
+竞赛、科研经历和 News；数组条目可以在 JSON 编辑器中新增、修改或删除，也可切换 `selected`、`featured` 和 `visible`。
 “验证并保存”会检查 JSON、中英文字段和链接格式，再输出统一缩进的 JSON。
 
 该工具不参与 Next.js 构建，不会进入 `out/`，没有远程登录、密码或文件上传功能。
@@ -312,11 +320,11 @@ images: {
 ## 发布前检查清单
 
 - [ ] 所有公开成果均有事实依据，没有虚构题目、venue、年份、导师或贡献
-- [ ] TODO 不会被误当成正式成果，未公开论文和项目保持 `visible: false`
+- [ ] 页面和公开内容文件中没有 TODO、Coming Soon 或维护者说明；未公开成果保持 `visible: false` 或不写入数组
 - [ ] 中文和英文页面均已检查
 - [ ] 头像、封面、替代文本和外部链接正确
 - [ ] 私人邮箱、手机号、微信和简历不在 `git status` 与 `out/`
-- [ ] 统计仍为预期状态，隐私说明同步
+- [ ] 首页各模块只在有真实公开数据时出现，隐私说明同步
 - [ ] 搜索索引开关和 `robots.txt` 一致
 - [ ] `npm run validate:content`、`typecheck`、`lint`、`test`、`build` 全部通过
 - [ ] `npm run test:e2e` 在桌面与移动视口通过
