@@ -29,8 +29,14 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.locator(".profile-sidebar")).toBeVisible();
   const portrait = page.getByRole("img", { name: "程硕的个人照片" });
   await expect(portrait).toBeVisible();
-  expect((await portrait.boundingBox())?.width).toBeLessThanOrEqual(240);
-  await expect(page.getByRole("img", { name: /AI 研究主题概念插画/ })).toBeVisible();
+  expect((await portrait.boundingBox())?.width).toBeLessThanOrEqual(190);
+  const researchConcept = page.getByRole("img", { name: /AI 研究主题概念插画/ });
+  await expect(researchConcept).toBeVisible();
+  const portraitBox = await portrait.boundingBox();
+  const conceptBox = await researchConcept.boundingBox();
+  expect(portraitBox).not.toBeNull();
+  expect(conceptBox).not.toBeNull();
+  expect(conceptBox!.width).toBeGreaterThan(portraitBox!.width);
   await expect(page.locator("#news time")).toHaveText("2026年8月26日");
   await expect(page.locator("#news img")).toHaveCount(0);
 });
