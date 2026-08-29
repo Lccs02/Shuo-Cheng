@@ -26,15 +26,13 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "教育经历" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "动态", exact: true })).toBeVisible();
   await expect(page.locator(".orbital-research-field")).toBeVisible();
+  await expect(page.locator(".profile-sidebar")).toBeVisible();
   const portrait = page.getByRole("img", { name: "程硕的个人照片" });
   await expect(portrait).toBeVisible();
-  expect((await portrait.boundingBox())?.width).toBeLessThanOrEqual(192);
-  await expect(page.getByRole("img", { name: "BWTAC'26 论文录用邮件截图" })).toBeVisible();
-  const evidence = page.locator(".news-evidence-image");
-  const evidenceBox = await evidence.boundingBox();
-  expect(evidenceBox).not.toBeNull();
-  expect(Math.abs(evidenceBox!.width / evidenceBox!.height - 117 / 145)).toBeLessThan(0.02);
-  await expect(page.locator(".news-evidence-image-content")).toHaveCSS("object-fit", "contain");
+  expect((await portrait.boundingBox())?.width).toBeLessThanOrEqual(240);
+  await expect(page.getByRole("img", { name: /AI 研究主题概念插画/ })).toBeVisible();
+  await expect(page.locator("#news time")).toHaveText("2026年8月26日");
+  await expect(page.locator("#news img")).toHaveCount(0);
 });
 
 test("language switcher covers home and inner pages", async ({ page }) => {
@@ -65,9 +63,15 @@ test("empty academic sections and internal placeholders stay hidden", async ({ p
   );
 });
 
-test("the concept illustration is not presented as a profile photo", async ({ page }) => {
+test("profile and research concept images remain clearly distinguished", async ({ page }) => {
   await page.goto(sitePath("/"));
-  await expect(page.getByRole("img", { name: /research illustration/i })).toHaveCount(0);
+  const portrait = page.getByRole("img", { name: "程硕的个人照片" });
+  const concept = page.getByRole("img", { name: /AI 研究主题概念插画/ });
+  await expect(portrait).toBeVisible();
+  await expect(concept).toBeVisible();
+  expect(await portrait.getAttribute("src")).toContain("profile-shuo-cheng.jpg");
+  expect(await concept.getAttribute("src")).toContain("academic-research-concept.webp");
+  await expect(page.getByText("研究主题概念插画 · AI 生成")).toBeVisible();
 
   await page.goto(sitePath("/research/"));
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");

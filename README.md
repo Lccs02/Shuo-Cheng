@@ -100,6 +100,8 @@ npm.cmd run validate:content
 
 错误会包含具体文件和字段路径。
 
+首页左侧个人信息栏中的头像由 `photo` 控制；右侧研究简介中的主题插画由 `heroResearchVisual` 控制，并使用独立的中英文替代文本和显示开关。研究插画应明确标注为概念图，避免被误认为本人照片。
+
 ## 替换头像和图片
 
 将真实照片放入 `public/images/`，例如：
@@ -113,8 +115,7 @@ public/images/profile.jpg
 项目、竞赛和奖项封面建议使用 16:10，至少 1600 × 1000 像素；可使用 JPG、WebP 或 AVIF。
 图片路径从 `/images/...` 开始。组件为所有图片保留固定比例，并在加载失败时显示本地 fallback，避免布局跳动。
 
-论文框架图建议放入 `public/images/publications/` 并通过 `thumbnail` 引用。News 条目可以通过可选的
-`image`、`imageAltZh` 与 `imageAltEn` 字段展示录用邮件等可公开证据；加入前应检查邮件地址、编号和其他个人信息。
+论文框架图建议放入 `public/images/publications/` 并通过 `thumbnail` 引用。首页 News 采用纯文本列表，`date` 必须填写为 `YYYY-MM-DD`，页面会根据中英文环境显示精确到日的日期；证明材料请放在论文或奖项详情中，不要加入 News。
 
 独立 `/research` 页面中的研究概念图由 `content/profile.json` 中的 `researchVisual`、中英文替代文本和
 `researchVisualVisible` 控制。默认素材位于

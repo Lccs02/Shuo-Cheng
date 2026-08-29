@@ -31,6 +31,10 @@ export const profileSchema = z.object({
   photoAltZh: z.string().min(1),
   photoAltEn: z.string().min(1),
   photoVisible: z.boolean(),
+  heroResearchVisual: z.string().startsWith("/").optional(),
+  heroResearchVisualAltZh: z.string().min(1),
+  heroResearchVisualAltEn: z.string().min(1),
+  heroResearchVisualVisible: z.boolean(),
   researchVisual: z.string().startsWith("/").optional(),
   researchVisualAltZh: z.string().min(1),
   researchVisualAltEn: z.string().min(1),
@@ -143,14 +147,11 @@ export const researchExperiencesSchema = z.array(
 export const newsSchema = z.array(
   z.object({
     id: z.string().min(1),
-    date: z.string().regex(/^\d{4}-\d{2}(?:-\d{2})?$/),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     contentZh: z.string().min(1),
     contentEn: z.string().min(1),
     type: z.enum(["publication", "research", "award", "education", "other"]),
     link: optionalUrl,
-    image: z.string().optional(),
-    imageAltZh: z.string().optional(),
-    imageAltEn: z.string().optional(),
     visible: z.boolean(),
   }),
 );

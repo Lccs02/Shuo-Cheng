@@ -1,7 +1,7 @@
 import { DocumentLanguage } from "@/components/common/DocumentLanguage";
 import { Awards } from "@/components/home/Awards";
 import { Education } from "@/components/home/Education";
-import { Hero } from "@/components/home/Hero";
+import { Hero, ProfileSidebar } from "@/components/home/Hero";
 import { News } from "@/components/home/News";
 import { PublicationList } from "@/components/home/PublicationList";
 import { ResearchExperience } from "@/components/home/ResearchExperience";
@@ -36,20 +36,25 @@ export function HomePage({ locale }: { locale: Locale }) {
     .slice(0, 5);
 
   return (
-    <main id="main-content">
+    <main id="main-content" className="home-page">
       <DocumentLanguage locale={locale} />
-      <Hero locale={locale} />
-      <ResearchJourney
-        topics={visibleResearch}
-        introduction={sites[locale].researchJourneyIntro}
-        locale={locale}
-      />
-      <PublicationList publications={visiblePublications} locale={locale} />
-      <ResearchExperience items={visibleResearchExperience} locale={locale} />
-      <ResearchProjectList projects={visibleProjects} locale={locale} />
-      <Awards awards={visibleAwards} locale={locale} />
-      <Education items={visibleEducation} locale={locale} />
-      <News items={visibleNews} locale={locale} />
+      <div className="home-profile-layout academic-shell">
+        <ProfileSidebar locale={locale} />
+        <div className="home-content">
+          <Hero locale={locale} />
+          <News items={visibleNews} locale={locale} />
+          <ResearchJourney
+            topics={visibleResearch}
+            introduction={sites[locale].researchJourneyIntro}
+            locale={locale}
+          />
+          <PublicationList publications={visiblePublications} locale={locale} />
+          <ResearchExperience items={visibleResearchExperience} locale={locale} />
+          <ResearchProjectList projects={visibleProjects} locale={locale} />
+          <Awards awards={visibleAwards} locale={locale} />
+          <Education items={visibleEducation} locale={locale} />
+        </div>
+      </div>
     </main>
   );
 }

@@ -14,10 +14,31 @@ export function ProfilePhoto({ locale }: { locale: Locale }) {
         src={profile.photo}
         alt={locale === "zh" ? profile.photoAltZh : profile.photoAltEn}
         priority
-        sizes="(max-width: 768px) 184px, 192px"
+        sizes="(max-width: 800px) 144px, 224px"
         className="profile-photo-image"
       />
     </div>
+  );
+}
+
+function HeroResearchVisual({ locale }: { locale: Locale }) {
+  if (!profile.heroResearchVisualVisible || !profile.heroResearchVisual) return null;
+
+  return (
+    <figure className="hero-research-visual reveal reveal-delay">
+      <div className="hero-research-visual-frame">
+        <ImageWithFallback
+          src={profile.heroResearchVisual}
+          alt={locale === "zh" ? profile.heroResearchVisualAltZh : profile.heroResearchVisualAltEn}
+          priority
+          sizes="(max-width: 520px) 128px, 176px"
+          className="hero-research-visual-image"
+        />
+      </div>
+      <figcaption>
+        {locale === "zh" ? "研究主题概念插画 · AI 生成" : "Research concept · AI-generated"}
+      </figcaption>
+    </figure>
   );
 }
 
@@ -36,38 +57,60 @@ export function AcademicLinks({ locale }: { locale: Locale }) {
   );
 }
 
-export function Hero({ locale }: { locale: Locale }) {
-  const expectedYear = profile.period.split("—")[1];
+export function ProfileSidebar({ locale }: { locale: Locale }) {
   const chinese = locale === "zh";
-  const primaryName = chinese ? profile.nameZh : profile.nameEn;
-  const secondaryName = chinese ? profile.nameEn : profile.nameZh;
+  const expectedYear = profile.period.split("—")[1];
 
   return (
-    <section className="hero-stage" aria-labelledby="home-title">
+    <aside className="profile-sidebar reveal" aria-labelledby="home-title">
+      <ProfilePhoto locale={locale} />
+      <div className="profile-sidebar-copy">
+        <h1 id="home-title" className="profile-sidebar-name">
+          {chinese ? profile.nameZh : profile.nameEn}
+          <span lang={chinese ? "en" : "zh-CN"}>{chinese ? profile.nameEn : profile.nameZh}</span>
+        </h1>
+        <p className="profile-sidebar-role">
+          {chinese ? profile.currentRoleZh : profile.currentRoleEn}
+        </p>
+        <div className="profile-sidebar-affiliation">
+          <p>{chinese ? profile.departmentZh : profile.departmentEn}</p>
+          <p>{chinese ? profile.universityZh : profile.universityEn}</p>
+        </div>
+        <dl className="profile-facts">
+          <div>
+            <dt>{chinese ? "专业" : "Field"}</dt>
+            <dd>{chinese ? profile.majorZh : profile.majorEn}</dd>
+          </div>
+          <div>
+            <dt>{chinese ? "学位" : "Degree"}</dt>
+            <dd>
+              {chinese
+                ? `${profile.degreeZh} · ${expectedYear} 年预计毕业`
+                : `${profile.degreeEn} · Expected ${expectedYear}`}
+            </dd>
+          </div>
+          <div>
+            <dt>{chinese ? "地点" : "Location"}</dt>
+            <dd>{chinese ? profile.locationZh : profile.locationEn}</dd>
+          </div>
+        </dl>
+        <AcademicLinks locale={locale} />
+      </div>
+    </aside>
+  );
+}
+
+export function Hero({ locale }: { locale: Locale }) {
+  const chinese = locale === "zh";
+
+  return (
+    <section className="hero-stage" aria-labelledby="research-profile-title">
       <OrbitalResearchField />
       <div className="hero-atmosphere" aria-hidden="true" />
-      <div className="hero-inner academic-shell">
+      <div className="hero-inner">
         <div className="hero-copy reveal">
-          <p className="hero-eyebrow">
-            {chinese ? "本科生科研主页" : "Undergraduate Research Portfolio"}
-          </p>
-          <h1 id="home-title" className="hero-name">
-            {primaryName}
-            <span lang={chinese ? "en" : "zh-CN"}>{secondaryName}</span>
-          </h1>
-
-          <div className="hero-affiliation">
-            <p>{chinese ? profile.currentRoleZh : profile.currentRoleEn}</p>
-            <p>{chinese ? profile.departmentZh : profile.departmentEn}</p>
-            <p>{chinese ? profile.universityZh : profile.universityEn}</p>
-            <p className="hero-degree">
-              {chinese
-                ? `${profile.degreeZh} · ${expectedYear} 年预计毕业 · ${profile.locationZh}`
-                : `Expected ${profile.degreeEn.replace(" Candidate", "")} ${expectedYear} · ${profile.locationEn}`}
-            </p>
-          </div>
-
-          <h2 className="research-identity">
+          <p className="hero-eyebrow">{chinese ? "研究简介" : "Research Profile"}</p>
+          <h2 id="research-profile-title" className="research-identity">
             {chinese ? profile.researchIdentityZh : profile.researchIdentityEn}
           </h2>
 
@@ -79,14 +122,18 @@ export function Hero({ locale }: { locale: Locale }) {
             )}
           </div>
 
-          <p className="research-keywords">{profile.focusKeywords.join(" · ")}</p>
-          <AcademicLinks locale={locale} />
+          <ul
+            className="research-keywords"
+            aria-label={chinese ? "研究关键词" : "Research keywords"}
+          >
+            {profile.focusKeywords.map((keyword) => (
+              <li key={keyword}>{keyword}</li>
+            ))}
+          </ul>
         </div>
 
-        {profile.photoVisible && profile.photo ? (
-          <div className="hero-portrait reveal reveal-delay">
-            <ProfilePhoto locale={locale} />
-          </div>
+        {profile.heroResearchVisualVisible && profile.heroResearchVisual ? (
+          <HeroResearchVisual locale={locale} />
         ) : (
           <div className="hero-signal-caption" aria-label="Research process summary">
             <span>Dynamic networked systems</span>

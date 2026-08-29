@@ -21,9 +21,9 @@ describe("content integrity", () => {
       visible: true,
     });
     expect(researchExperiences).toHaveLength(0);
-    expect(news).toHaveLength(2);
+    expect(news).toHaveLength(1);
     expect(news[0]?.date).toBe("2026-08-26");
-    expect(news[0]?.image).toContain("bwtac26-acceptance-email.png");
+    expect(news.every((item) => /^\d{4}-\d{2}-\d{2}$/.test(item.date))).toBe(true);
     expect(JSON.stringify({ publications, researchExperiences, news })).not.toMatch(/TODO/i);
   });
 
@@ -45,6 +45,8 @@ describe("content integrity", () => {
     expect(profile.schoolEmail).toBe("24270230@hdu.edu.cn");
     expect(profile.photoVisible).toBe(true);
     expect(profile.photo).toBe("/images/profile-shuo-cheng.jpg");
+    expect(profile.heroResearchVisualVisible).toBe(true);
+    expect(profile.heroResearchVisual).toBe("/images/research/academic-research-concept.webp");
     expect(profile.researchIdentityEn).toBe("Learning for Dynamic Networked Systems");
     expect(JSON.stringify({ awards, competitions, profile })).not.toContain(
       "private-person@example.invalid",

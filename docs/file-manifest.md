@@ -59,6 +59,7 @@ content/news.json
 content/site.en.json
 content/site.zh.json
 public/images/research/satellite-rl-visual.webp
+public/images/research/academic-research-concept.webp
 content/skills.json
 docs/file-manifest.md
 docs/phase-1-plan.md
@@ -84,7 +85,6 @@ public/images/competitions/.gitkeep
 public/images/education/.gitkeep
 public/images/profile-placeholder.jpg
 public/images/profile-shuo-cheng.jpg
-public/images/publications/bwtac26-acceptance-email.png
 public/images/publications/bwtac26-framework.png
 public/images/projects/.gitkeep
 public/robots.txt
