@@ -31,6 +31,12 @@ describe("content integrity", () => {
     expect(projects.filter((item) => item.visible)).toHaveLength(0);
   });
 
+  it("classifies selected recognition without inventing scholarships", () => {
+    expect(awards.filter((item) => item.type === "scholarship")).toHaveLength(0);
+    expect(awards.filter((item) => item.type === "research")).toHaveLength(1);
+    expect(awards.filter((item) => item.type === "competition")).toHaveLength(3);
+  });
+
   it("defines a three-stage research journey", () => {
     expect(researchTopics.filter((item) => item.visible)).toHaveLength(3);
     expect(researchTopics.map((item) => item.phase)).toEqual([

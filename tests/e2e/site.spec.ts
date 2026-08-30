@@ -23,6 +23,10 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "精选论文" })).toBeVisible();
   await expect(page.locator("#publications").getByText("BWTAC'26", { exact: false })).toBeVisible();
   await expect(page.getByRole("heading", { name: "精选奖项与荣誉" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "奖学金", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "科研项目", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "学科竞赛", exact: true })).toBeVisible();
+  await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText("暂无公开记录");
   await expect(page.getByRole("heading", { name: "教育经历" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "动态", exact: true })).toBeVisible();
   await expect(page.locator(".orbital-research-field")).toBeVisible();
@@ -47,6 +51,11 @@ test("language switcher covers home and inner pages", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/#news$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.getByRole("heading", { name: "News" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Scholarships", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Research Projects", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Academic Competitions", exact: true }),
+  ).toBeVisible();
 
   await page.goto(sitePath("/research/"));
   await page.getByRole("link", { name: "切换到英文" }).click();

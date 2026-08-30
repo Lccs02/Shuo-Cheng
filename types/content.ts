@@ -84,12 +84,16 @@ export type Award = {
   nameEn: string;
   distinctionZh: string;
   distinctionEn: string;
+  level: "national" | "provincial" | "university";
+  type: "competition" | "scholarship" | "honor" | "research" | "other";
   year?: number;
   issuerZh?: string;
   issuerEn?: string;
   descriptionZh?: string;
   descriptionEn?: string;
   certificate?: string;
+  featured: boolean;
+  visible: boolean;
 };
 
 export type Education = {

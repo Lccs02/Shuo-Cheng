@@ -712,7 +712,7 @@ html[data-scrolled] .site-header {
 
 .publication-list,
 .project-list,
-.award-list,
+.award-groups,
 .education-list,
 .news-list,
 .academic-list {
@@ -789,7 +789,7 @@ html[data-scrolled] .site-header {
 }
 
 .project-heading h3,
-.award-entry h3,
+.award-entry h4,
 .education-entry h3 {
   margin: 0;
   font-size: 1.04rem;
@@ -805,10 +805,55 @@ html[data-scrolled] .site-header {
   line-height: 1.65;
 }
 
-.award-list,
+.award-groups,
 .education-list,
 .news-list {
   max-width: none;
+}
+
+.award-group {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 1.75rem;
+  padding-block: 1.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.award-group-header span {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.award-group-header h3 {
+  margin: 0.35rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.award-group-list {
+  min-width: 0;
+}
+
+.award-group-list .award-entry {
+  padding-block: 0.85rem;
+}
+
+.award-group-list .award-entry:first-child {
+  padding-top: 0;
+}
+
+.award-group-list .award-entry:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.award-group-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .award-entry,
@@ -845,7 +890,7 @@ html[data-scrolled] .site-header {
   font-weight: 500;
 }
 
-.award-entry h3 {
+.award-entry h4 {
   margin-top: 0.2rem;
   color: var(--muted);
   font-weight: 400;
@@ -1244,6 +1289,11 @@ html[data-scrolled] .site-header {
   .research-topic-row {
     grid-template-columns: 1fr;
     gap: 0.45rem;
+  }
+
+  .award-group {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
   }
 
   .cv-row {
