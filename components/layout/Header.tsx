@@ -4,6 +4,8 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
+  awards,
+  education,
   getGithubProjects,
   hrefFor,
   navigation,
@@ -36,6 +38,8 @@ const visibleSections = new Set([
     ? ["projects"]
     : []),
   ...(news.some((item) => item.visible) ? ["news"] : []),
+  ...(awards.some((item) => item.visible && item.featured) ? ["awards"] : []),
+  ...(education.some((item) => item.visible) ? ["education"] : []),
 ]);
 
 const visibleNavigation = navigation.filter((item) => visibleSections.has(item.path));

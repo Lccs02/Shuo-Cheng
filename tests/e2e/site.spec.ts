@@ -29,7 +29,13 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText("暂无公开记录");
   await expect(page.getByRole("heading", { name: "教育经历" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "动态", exact: true })).toBeVisible();
-  await expect(page.locator(".desktop-navigation .nav-link")).toHaveText(["动态", "研究", "论文"]);
+  await expect(page.locator(".desktop-navigation .nav-link")).toHaveText([
+    "动态",
+    "研究",
+    "论文",
+    "奖项",
+    "教育",
+  ]);
   await expect(page.locator(".orbital-research-field")).toBeVisible();
   await expect(page.locator(".profile-sidebar")).toBeVisible();
   const portrait = page.getByRole("img", { name: "程硕的个人照片" });
@@ -56,6 +62,8 @@ test("language switcher covers home and inner pages", async ({ page }) => {
     "News",
     "Research",
     "Publications",
+    "Awards",
+    "Education",
   ]);
   await expect(page.getByRole("heading", { name: "Scholarships", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Research Projects", exact: true })).toBeVisible();
