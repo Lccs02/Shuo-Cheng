@@ -29,7 +29,7 @@ export function ResearchJourney({
         aria-label={locale === "zh" ? "研究主线" : "Research journey"}
       >
         {topics.map((topic, index) => (
-          <article key={topic.id} className="journey-step">
+          <article key={topic.id} className="journey-step" data-depth>
             <div className="journey-phase">
               <span>{String(index + 1).padStart(2, "0")}</span>
               <span>{locale === "zh" ? topic.phaseLabelZh : topic.phaseLabelEn}</span>

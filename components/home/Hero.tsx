@@ -26,12 +26,12 @@ function HeroResearchVisual({ locale }: { locale: Locale }) {
 
   return (
     <figure className="hero-research-visual reveal reveal-delay">
-      <div className="hero-research-visual-frame">
+      <div className="hero-research-visual-frame" data-depth>
         <ImageWithFallback
           src={profile.heroResearchVisual}
           alt={locale === "zh" ? profile.heroResearchVisualAltZh : profile.heroResearchVisualAltEn}
           priority
-          sizes="(max-width: 520px) 128px, 176px"
+          sizes="(max-width: 520px) 240px, (max-width: 1100px) 200px, 280px"
           className="hero-research-visual-image"
         />
       </div>

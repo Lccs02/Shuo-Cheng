@@ -168,7 +168,7 @@ export function OrbitalResearchField() {
     }
 
     function animate(time: number) {
-      if (visible && time - lastFrame > 32) {
+      if (time - lastFrame > 32) {
         render(time);
         lastFrame = time;
       }
@@ -178,7 +178,7 @@ export function OrbitalResearchField() {
     function updateMotion() {
       cancelAnimationFrame(frame);
       if (reducedMotion.matches) render(0);
-      else frame = requestAnimationFrame(animate);
+      else if (visible && !document.hidden) frame = requestAnimationFrame(animate);
     }
 
     const resizeObserver = new ResizeObserver(resize);
@@ -188,6 +188,7 @@ export function OrbitalResearchField() {
     });
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      updateMotion();
     });
 
     resizeObserver.observe(canvas);
@@ -197,6 +198,7 @@ export function OrbitalResearchField() {
       attributeFilter: ["class"],
     });
     reducedMotion.addEventListener("change", updateMotion);
+    document.addEventListener("visibilitychange", updateMotion);
     resize();
     updateMotion();
 
@@ -206,6 +208,7 @@ export function OrbitalResearchField() {
       visibilityObserver.disconnect();
       themeObserver.disconnect();
       reducedMotion.removeEventListener("change", updateMotion);
+      document.removeEventListener("visibilitychange", updateMotion);
     };
   }, []);
 
