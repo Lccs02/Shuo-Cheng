@@ -28,7 +28,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     ...projects.filter((item) => item.visible && item.selected),
     ...getGithubProjects(),
   ].slice(0, 4);
-  const visibleAwards = awards.filter((item) => item.visible && item.featured).slice(0, 4);
+  const visibleAwards = awards.filter((item) => item.visible && item.featured).slice(0, 6);
   const visibleEducation = education.filter((item) => item.visible);
   const visibleNews = news
     .filter((item) => item.visible)

@@ -34,7 +34,15 @@ describe("content integrity", () => {
   it("classifies selected recognition without inventing scholarships", () => {
     expect(awards.filter((item) => item.type === "scholarship")).toHaveLength(0);
     expect(awards.filter((item) => item.type === "research")).toHaveLength(1);
-    expect(awards.filter((item) => item.type === "competition")).toHaveLength(3);
+    expect(awards.filter((item) => item.type === "competition")).toHaveLength(4);
+    expect(awards).toContainEqual(
+      expect.objectContaining({
+        nameZh: "浙江省数学建模竞赛",
+        distinctionZh: "省级二等奖",
+        level: "provincial",
+        type: "competition",
+      }),
+    );
   });
 
   it("defines a three-stage research journey", () => {

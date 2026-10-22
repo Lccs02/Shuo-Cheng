@@ -27,6 +27,8 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "科研项目", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "学科竞赛", exact: true })).toBeVisible();
   await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText("暂无公开记录");
+  await expect(page.locator("#awards")).toContainText("浙江省数学建模竞赛");
+  await expect(page.locator("#awards")).toContainText("省级二等奖");
   await expect(page.getByRole("heading", { name: "教育经历" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "动态", exact: true })).toBeVisible();
   await expect(page.locator(".desktop-navigation .nav-link")).toHaveText([

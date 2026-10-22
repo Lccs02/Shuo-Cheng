@@ -33,6 +33,17 @@
     "visible": true
   },
   {
+    "id": "zhejiang-mathematical-modeling-award",
+    "nameZh": "浙江省数学建模竞赛",
+    "nameEn": "Zhejiang Provincial Mathematical Modeling Competition",
+    "distinctionZh": "省级二等奖",
+    "distinctionEn": "Provincial Second Prize",
+    "level": "provincial",
+    "type": "competition",
+    "featured": true,
+    "visible": true
+  },
+  {
     "id": "innovation-training-award",
     "nameZh": "大学生创新创业训练计划",
     "nameEn": "Student Innovation and Entrepreneurship Training Program",
