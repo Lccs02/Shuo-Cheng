@@ -1,5 +1,16 @@
 [
   {
+    "id": "zhejiang-government-scholarship-2025-2026",
+    "nameZh": "浙江省政府奖学金",
+    "nameEn": "Zhejiang Provincial Government Scholarship",
+    "distinctionZh": "2025-2026学年",
+    "distinctionEn": "Academic Year 2025–2026",
+    "level": "provincial",
+    "type": "scholarship",
+    "featured": true,
+    "visible": true
+  },
+  {
     "id": "teddy-cup-award",
     "nameZh": "泰迪杯",
     "nameEn": "Teddy Cup",

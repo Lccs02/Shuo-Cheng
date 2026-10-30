@@ -21,8 +21,16 @@ describe("content integrity", () => {
       visible: true,
     });
     expect(researchExperiences).toHaveLength(0);
-    expect(news).toHaveLength(1);
-    expect(news[0]?.date).toBe("2026-08-26");
+    expect(news).toHaveLength(2);
+    expect(news).toContainEqual(
+      expect.objectContaining({
+        date: "2026-10-28",
+        contentZh: "获得2025-2026学年浙江省政府奖学金。",
+        type: "award",
+        visible: true,
+      }),
+    );
+    expect(news).toContainEqual(expect.objectContaining({ date: "2026-08-26" }));
     expect(news.every((item) => /^\d{4}-\d{2}-\d{2}$/.test(item.date))).toBe(true);
     expect(JSON.stringify({ publications, researchExperiences, news })).not.toMatch(/TODO/i);
   });
@@ -31,8 +39,18 @@ describe("content integrity", () => {
     expect(projects.filter((item) => item.visible)).toHaveLength(0);
   });
 
-  it("classifies selected recognition without inventing scholarships", () => {
-    expect(awards.filter((item) => item.type === "scholarship")).toHaveLength(0);
+  it("classifies selected recognition including the confirmed scholarship", () => {
+    expect(awards.filter((item) => item.type === "scholarship")).toHaveLength(1);
+    expect(awards).toContainEqual(
+      expect.objectContaining({
+        nameZh: "浙江省政府奖学金",
+        distinctionZh: "2025-2026学年",
+        level: "provincial",
+        type: "scholarship",
+        featured: true,
+        visible: true,
+      }),
+    );
     expect(awards.filter((item) => item.type === "research")).toHaveLength(1);
     expect(awards.filter((item) => item.type === "competition")).toHaveLength(4);
     expect(awards).toContainEqual(

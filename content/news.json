@@ -1,5 +1,13 @@
 [
   {
+    "id": "zhejiang-government-scholarship-2025-2026",
+    "date": "2026-10-28",
+    "contentZh": "获得2025-2026学年浙江省政府奖学金。",
+    "contentEn": "Awarded the Zhejiang Provincial Government Scholarship for the 2025–2026 academic year.",
+    "type": "award",
+    "visible": true
+  },
+  {
     "id": "bwtac26-paper-accepted",
     "date": "2026-08-26",
     "contentZh": "第一作者论文被 BWTAC'26 录用。",

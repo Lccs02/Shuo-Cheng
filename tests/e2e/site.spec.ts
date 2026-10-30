@@ -26,7 +26,10 @@ test("home communicates the research identity and journey", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "奖学金", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "科研项目", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "学科竞赛", exact: true })).toBeVisible();
-  await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText("暂无公开记录");
+  await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText("2025-2026学年");
+  await expect(page.locator(".award-group", { hasText: "奖学金" })).toContainText(
+    "浙江省政府奖学金",
+  );
   await expect(page.locator("#awards")).toContainText("浙江省数学建模竞赛");
   await expect(page.locator("#awards")).toContainText("省级二等奖");
   await expect(page.getByRole("heading", { name: "教育经历" })).toBeVisible();
@@ -50,7 +53,8 @@ test("home communicates the research identity and journey", async ({ page }) => 
   expect(portraitBox).not.toBeNull();
   expect(conceptBox).not.toBeNull();
   expect(conceptBox!.width).toBeGreaterThan(portraitBox!.width);
-  await expect(page.locator("#news time")).toHaveText("2026年8月26日");
+  await expect(page.locator("#news time")).toHaveText(["2026年10月28日", "2026年8月26日"]);
+  await expect(page.locator("#news")).toContainText("获得2025-2026学年浙江省政府奖学金。");
   await expect(page.locator("#news img")).toHaveCount(0);
 });
 
@@ -68,6 +72,11 @@ test("language switcher covers home and inner pages", async ({ page }) => {
     "Education",
   ]);
   await expect(page.getByRole("heading", { name: "Scholarships", exact: true })).toBeVisible();
+  await expect(page.locator("#awards")).toContainText("Zhejiang Provincial Government Scholarship");
+  await expect(page.locator("#awards")).toContainText("Academic Year 2025–2026");
+  await expect(page.locator("#news")).toContainText(
+    "Awarded the Zhejiang Provincial Government Scholarship for the 2025–2026 academic year.",
+  );
   await expect(page.getByRole("heading", { name: "Research Projects", exact: true })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Academic Competitions", exact: true }),
